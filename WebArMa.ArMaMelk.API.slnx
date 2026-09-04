@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Core/">
+    <Project Path="WebArMa.ArMaMelk.API.Application/WebArMa.ArMaMelk.API.Application.csproj" />
+    <Project Path="WebArMa.ArMaMelk.API.Domain/WebArMa.ArMaMelk.API.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructures/">
+    <Project Path="WebArMa.ArMaMelk.API.Infrastructure/WebArMa.ArMaMelk.API.Infrastructure.csproj" />
+    <Project Path="WebArMa.ArMaMelk.Persistence/WebArMa.ArMaMelk.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="WebArMa.ArMaMelk.API.EndPoint/WebArMa.ArMaMelk.API.EndPoint.csproj" />
+  </Folder>
+</Solution>
