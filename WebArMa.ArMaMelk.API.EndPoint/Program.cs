@@ -1,7 +1,9 @@
+using Asp.Versioning;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 using StackExchange.Redis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,10 +14,7 @@ using WebArMa.ArMaMelk.Persistence.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!));
@@ -25,13 +24,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTConfig:key"]!)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTConfig:Key"]!)),
 
         ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JWTConfig:issuer"],
+        ValidIssuer = builder.Configuration["JWTConfig:Issuer"],
 
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWTConfig:audience"],
+        ValidAudience = builder.Configuration["JWTConfig:Audience"],
 
         ValidateLifetime = true,
 
@@ -74,9 +73,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+})
+.AddMvc()
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 var config = TypeAdapterConfig.GlobalSettings;
 config.Scan(typeof(PersonMappingConfigurations).Assembly);
 builder.Services.AddSingleton(config);
+
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddScoped<IRedisService, RedisService>();
 
@@ -86,6 +99,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();

@@ -40,11 +40,11 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 
         private async Task GenerateToken(User user, Guid roleId, string accessCode)
         {
-            var issuer = configuration["JWTConfig:issuer"]!;
-            var audience = configuration["JWTConfig:audience"]!;
-            var key = configuration["JWTConfig:key"]!;
-            var expires = int.Parse(configuration["JWTConfig:expires"]!);
-            var refreshExpires = int.Parse(configuration["JWTConfig:refreshExpires"]!);
+            var issuer = configuration["JWTConfig:Issuer"]!;
+            var audience = configuration["JWTConfig:Audience"]!;
+            var key = configuration["JWTConfig:Key"]!;
+            var expires = int.Parse(configuration["JWTConfig:AccessTokenExpirationMinutes"]!);
+            var refreshExpires = int.Parse(configuration["JWTConfig:RefreshTokenExpirationDays"]!);
 
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
             var jti = Guid.NewGuid().ToString("N");
