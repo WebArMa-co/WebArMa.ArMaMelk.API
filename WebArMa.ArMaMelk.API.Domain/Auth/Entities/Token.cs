@@ -1,4 +1,5 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
 {

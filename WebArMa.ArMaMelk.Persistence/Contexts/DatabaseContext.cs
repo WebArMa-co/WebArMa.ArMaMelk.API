@@ -5,6 +5,7 @@ using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 using WebArMa.ArMaMelk.Persistence.Configurations;
 
 namespace WebArMa.ArMaMelk.Persistence.Contexts

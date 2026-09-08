@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
-using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Update
+namespace WebArMa.ArMaMelk.API.Application.Users.Commands.Update
 {
     public class UpdateCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<UpdateCommand>
     {

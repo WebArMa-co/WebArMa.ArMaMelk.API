@@ -1,6 +1,6 @@
 ﻿using WebArMa.ArMaMelk.API.Application._Shared.DTOs;
 
-namespace WebArMa.ArMaMelk.API.Application.Auth.DTOs
+namespace WebArMa.ArMaMelk.API.Application.Users.DTOs
 {
     public class UserDTO : DTOBase
     {

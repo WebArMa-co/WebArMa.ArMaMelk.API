@@ -12,6 +12,7 @@ using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 {

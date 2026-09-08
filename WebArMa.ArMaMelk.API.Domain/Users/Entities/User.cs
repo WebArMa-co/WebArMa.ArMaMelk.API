@@ -1,7 +1,7 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
-namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
+namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
 {
     public class User : EntityBase
     {

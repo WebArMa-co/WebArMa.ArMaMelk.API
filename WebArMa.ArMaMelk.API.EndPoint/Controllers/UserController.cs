@@ -1,8 +1,8 @@
 using Asp.Versioning;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
-using WebArMa.ArMaMelk.API.Application.Auth.Commands.Update;
-using WebArMa.ArMaMelk.API.Application.Auth.Queries.GetByGuid;
+using WebArMa.ArMaMelk.API.Application.Users.Commands.Update;
+using WebArMa.ArMaMelk.API.Application.Users.Queries.GetByGuid;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {

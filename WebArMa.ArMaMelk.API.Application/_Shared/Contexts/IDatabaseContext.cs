@@ -2,6 +2,7 @@
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application._Shared.Contexts
 {

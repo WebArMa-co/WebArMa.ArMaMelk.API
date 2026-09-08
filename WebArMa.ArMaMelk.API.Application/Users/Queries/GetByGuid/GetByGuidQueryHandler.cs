@@ -3,10 +3,10 @@ using Mediator;
 using Microsoft.EntityFrameworkCore;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
-using WebArMa.ArMaMelk.API.Application.Auth.DTOs;
-using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
+using WebArMa.ArMaMelk.API.Application.Users.DTOs;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Auth.Queries.GetByGuid
+namespace WebArMa.ArMaMelk.API.Application.Users.Queries.GetByGuid
 {
     public class GetByGuidQueryHandler(IDatabaseContext databaseContext, TypeAdapterConfig config) : IRequestHandler<GetByGuidQuery, UserDTO>
     {
