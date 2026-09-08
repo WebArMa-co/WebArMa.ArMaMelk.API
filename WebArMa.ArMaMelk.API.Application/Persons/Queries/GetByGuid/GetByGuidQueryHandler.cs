@@ -8,9 +8,9 @@ using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application.Persons.Queries.GetPersonByGuid
 {
-    public class GetPersonByGuidQueryHandler(IDatabaseContext databaseContext, TypeAdapterConfig config) : IRequestHandler<GetPersonByGuidQuery, PersonDTO>
+    public class GetByGuidQueryHandler(IDatabaseContext databaseContext, TypeAdapterConfig config) : IRequestHandler<GetByGuidQuery, PersonDTO>
     {
-        public async ValueTask<PersonDTO> Handle(GetPersonByGuidQuery request, CancellationToken cancellationToken)
+        public async ValueTask<PersonDTO> Handle(GetByGuidQuery request, CancellationToken cancellationToken)
         {
             var person = await databaseContext.Persons.ProjectToType<PersonDTO>(config).FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken: cancellationToken) ?? throw new NotFoundException(entity: nameof(Person));
             return person;

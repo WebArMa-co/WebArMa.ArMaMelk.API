@@ -8,9 +8,9 @@ using WebArMa.ArMaMelk.API.Domain.OTPs;
 
 namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.RequestOTP
 {
-    public class RequestOTPCommandHandler(IConfiguration configuration, IDatabaseContext databaseContext) : IRequestHandler<RequestOTPCommand>
+    public class RequestCommandHandler(IConfiguration configuration, IDatabaseContext databaseContext) : IRequestHandler<RequestCommand>
     {
-        public async ValueTask<Unit> Handle(RequestOTPCommand request, CancellationToken cancellationToken)
+        public async ValueTask<Unit> Handle(RequestCommand request, CancellationToken cancellationToken)
         {
             var otp = RandomNumberGenerator.GetInt32(10000, 100000).ToString();
             Debugger.Break();

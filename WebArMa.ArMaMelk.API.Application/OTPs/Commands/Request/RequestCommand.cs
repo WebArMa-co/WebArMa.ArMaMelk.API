@@ -2,5 +2,5 @@
 
 namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.RequestOTP
 {
-    public record RequestOTPCommand(string PhoneNumber) : IRequest;
+    public record RequestCommand(string PhoneNumber) : IRequest;
 }
