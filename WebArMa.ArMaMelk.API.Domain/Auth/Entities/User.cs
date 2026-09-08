@@ -1,4 +1,5 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
+using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
 {
@@ -18,14 +19,24 @@ namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
             PhotoURL = photoURL?.Trim();
         }
 
+        public void RevokeAllTokens()
+        {
+            TokenVersion++;
+        }
+
         private User()
         {
             UserName = string.Empty;
+            Person = null!;
         }
 
+        public long TokenVersion { get; set; }
         public string UserName { get; private set; }
         public string? DisplayName { get; private set; }
         public string? PhotoURL { get; private set; }
         public string EffectiveDisplayName => !string.IsNullOrWhiteSpace(DisplayName) ? DisplayName : UserName;
+        public Guid PersonGuid { get; set; }
+        public int PersonId { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

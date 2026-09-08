@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="3.1.31" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebArMa.ArMaMelk.API.Application\WebArMa.ArMaMelk.API.Application.csproj" />
   </ItemGroup>
 

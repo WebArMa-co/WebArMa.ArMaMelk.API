@@ -3,7 +3,7 @@ using System.Text;
 
 namespace WebArMa.ArMaMelk.API.Application._Shared.Helpers
 {
-    public static class HashHelper
+    public static class Hasher
     {
         public static string Hash(string otp, string secret)
         {

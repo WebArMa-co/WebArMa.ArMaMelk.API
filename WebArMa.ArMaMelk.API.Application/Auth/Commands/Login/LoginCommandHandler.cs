@@ -9,17 +9,18 @@ using System.Text;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
+using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 {
-    public class LoginCommandHandler(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IDatabaseContext databaseContext) : IRequestHandler<LoginCommand, Guid>
+    public class LoginCommandHandler(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IDatabaseContext databaseContext, IRedisService redisService) : IRequestHandler<LoginCommand, Guid>
     {
         public async ValueTask<Guid> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
-            var hashedOTP = HashHelper.Hash(request.Code, secret);
+            var hashedOTP = Hasher.Hash(request.Code, secret);
             var otp = await databaseContext.OTPs.FirstOrDefaultAsync(o => !o.IsUsed && o.IsActive && o.UserName == request.UserName && o.CodeHash == hashedOTP, cancellationToken) ?? throw new NotFoundException(nameof(OTP));
             otp.MarkAsUsed();
 
@@ -32,12 +33,12 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
                 await databaseContext.SaveChangesAsync(cancellationToken);
             }
 
-            await GenerateToken(user.Guid, Guid.Empty, "");
+            await GenerateToken(user, Guid.Empty, "");
 
             return user.Guid;
         }
 
-        private async Task GenerateToken(Guid userGuid, Guid roleId, string accessCode)
+        private async Task GenerateToken(User user, Guid roleId, string accessCode)
         {
             var issuer = configuration["JWTConfig:issuer"]!;
             var audience = configuration["JWTConfig:audience"]!;
@@ -46,12 +47,21 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             var refreshExpires = int.Parse(configuration["JWTConfig:refreshExpires"]!);
 
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
+            var jti = Guid.NewGuid().ToString("N");
 
             var claims = new[]
             {
-                 new Claim(ClaimTypes.NameIdentifier, userGuid.ToString()),
-                 new Claim(ClaimTypes.Role, roleId.ToString()),
-                 new Claim(ClaimTypes.Rsa, accessCode.ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, jti),
+                new Claim(JwtRegisteredClaimNames.GivenName, user.EffectiveDisplayName),
+                new Claim(JwtRegisteredClaimNames.Name, user.Person.Name),
+                new Claim(JwtRegisteredClaimNames.FamilyName, user.Person.FamilyName),
+                new Claim(JwtRegisteredClaimNames.PhoneNumber, user.Person.PhoneNumber),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Picture, user.PhotoURL ?? ""),
+                new Claim("token_version", user.TokenVersion.ToString()),
+                new Claim("role_id", roleId.ToString()),
+                new Claim("access_code", accessCode.ToString())
             };
 
             var accessToken = new JwtSecurityToken(
@@ -65,16 +75,16 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             var refreshTokenArray = Guid.NewGuid();
             var refreshTokenValue = refreshTokenArray.ToString("N");
 
-            var refreshToken = Token.Create(userGuid, refreshTokenValue, DateTimeOffset.UtcNow.AddMinutes(refreshExpires));
+            var refreshToken = Token.Create(user.Guid, refreshTokenValue, DateTimeOffset.UtcNow.AddMinutes(refreshExpires));
 
             await databaseContext.Tokens.AddAsync(refreshToken);
             await databaseContext.SaveChangesAsync();
 
             var token = new JwtSecurityTokenHandler().WriteToken(accessToken);
 
-            httpContextAccessor.HttpContext!.Response.Cookies.Append(
-                "access_token",
-                token,
+            await redisService.SetAsync($"user:token-version:{user.Id}", user.TokenVersion.ToString());
+
+            httpContextAccessor.HttpContext!.Response.Cookies.Append("access_token", token,
                 new CookieOptions
                 {
                     HttpOnly = true,
@@ -84,9 +94,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
                     Path = "/"
                 });
 
-            httpContextAccessor.HttpContext.Response.Cookies.Append(
-                "refresh_token",
-                refreshTokenValue,
+            httpContextAccessor.HttpContext.Response.Cookies.Append("refresh_token", refreshTokenValue,
                 new CookieOptions
                 {
                     HttpOnly = true,

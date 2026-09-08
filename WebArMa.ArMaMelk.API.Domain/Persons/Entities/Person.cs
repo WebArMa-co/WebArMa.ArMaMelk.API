@@ -1,4 +1,5 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
+using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
 {
@@ -6,24 +7,26 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
     {
         private Person()
         {
-            FirstName = string.Empty;
-            LastName = string.Empty;
+            Name = string.Empty;
+            FamilyName = string.Empty;
             PhoneNumber = string.Empty;
+            Users = [];
         }
 
-        public static Person Create(string firstName, string lastName, string phoneNumber)
+        public static Person Create(string name, string familyName, string phoneNumber)
         {
-            return new Person { FirstName = firstName.Trim(), LastName = lastName.Trim(), PhoneNumber = phoneNumber.Trim() };
+            return new Person { Name = name.Trim(), FamilyName = familyName.Trim(), PhoneNumber = phoneNumber.Trim() };
         }
 
-        public void Update(string firstName, string lastName)
+        public void Update(string name, string familyName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name;
+            FamilyName = familyName;
         }
 
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
+        public string Name { get; private set; }
+        public string FamilyName { get; private set; }
         public string PhoneNumber { get; private set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
