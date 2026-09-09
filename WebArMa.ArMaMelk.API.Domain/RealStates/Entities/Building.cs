@@ -3,7 +3,7 @@ using WebArMa.ArMaMelk.API.Domain.RealStates.Enums;
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Building : EntityBase
+    public class Building : EntityBase
     {
         public static Building Create(int? totalFloors = null, int? unitCount = null, int? unitPerFloor = null, ConstructionType? constructionType = null, FacadeType? facadeType = null)
         {
@@ -16,7 +16,6 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
                 FacadeType = facadeType
             };
         }
-
         public void Update(int? totalFloors = null, int? unitCount = null, int? unitPerFloor = null, ConstructionType? constructionType = null, FacadeType? facadeType = null)
         {
             TotalFloors = totalFloors;

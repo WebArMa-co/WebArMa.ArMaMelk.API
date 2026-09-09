@@ -4,8 +4,6 @@ namespace WebArMa.ArMaMelk.API.Domain.OTPs
 {
     public class OTP : EntityBase
     {
-        private const int MaxAttempts = 5;
-
         public static OTP Create(string userName, string codeHash, DateTimeOffset expiresAt)
         {
             return new OTP
@@ -15,17 +13,17 @@ namespace WebArMa.ArMaMelk.API.Domain.OTPs
                 ExpiresAt = expiresAt
             };
         }
-
+        public bool HasExceededAttempts(int maxAttempts) => AttemptCount >= maxAttempts;
+        public bool IsActive(int maxAttempts) => !IsUsed && !IsExpired && !HasExceededAttempts(maxAttempts);
         public void IncreaseAttempt()
         {
             AttemptCount++;
         }
-
         public void MarkAsUsed()
         {
             UsedAt = DateTimeOffset.UtcNow;
         }
-
+        
         private OTP()
         {
             UserName = string.Empty;
@@ -39,7 +37,5 @@ namespace WebArMa.ArMaMelk.API.Domain.OTPs
         public DateTimeOffset? UsedAt { get; private set; }
         public bool IsExpired => ExpiresAt <= DateTimeOffset.UtcNow;
         public bool IsUsed => UsedAt.HasValue;
-        public bool HasExceededAttempts => AttemptCount >= MaxAttempts;
-        public bool IsActive => !IsUsed && !IsExpired && !HasExceededAttempts;
     }
 }

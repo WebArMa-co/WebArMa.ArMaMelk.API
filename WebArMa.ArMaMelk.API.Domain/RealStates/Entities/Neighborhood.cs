@@ -2,7 +2,7 @@
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Neighborhood : EntityBase
+    public class Neighborhood : EntityBase
     {
         private Neighborhood()
         {
@@ -12,6 +12,6 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 
         public string Name { get; private set; }
         public int CityId { get; private set; }
-        public City City { get; private set; }
+        public virtual City City { get; private set; }
     }
 }

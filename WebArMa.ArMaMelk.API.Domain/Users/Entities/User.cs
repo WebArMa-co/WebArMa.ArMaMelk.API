@@ -1,5 +1,6 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
 {
@@ -28,6 +29,7 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
         {
             UserName = string.Empty;
             Person = null!;
+            Properties = [];
         }
 
         public long TokenVersion { get; set; }
@@ -38,5 +40,6 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
         public Guid PersonGuid { get; set; }
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
+        public virtual IReadOnlyCollection<Property> Properties { get; set; }
     }
 }

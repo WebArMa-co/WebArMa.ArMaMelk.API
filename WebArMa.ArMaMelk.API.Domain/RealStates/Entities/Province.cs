@@ -2,16 +2,15 @@
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Province : EntityBase
+    public class Province : EntityBase
     {
-        private readonly List<City> _cities = [];
-
         private Province()
         {
             Name = null!;
+            Cities = [];
         }
 
         public string Name { get; private set; }
-        public IReadOnlyCollection<City> Cities => _cities.AsReadOnly();
+        public virtual IReadOnlyCollection<City> Cities { get; private set; }
     }
 }

@@ -14,7 +14,6 @@ namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
                 ExpiresAt = expiresAt
             };
         }
-
         public void Revoke()
         {
             RevokedAt = DateTimeOffset.UtcNow;

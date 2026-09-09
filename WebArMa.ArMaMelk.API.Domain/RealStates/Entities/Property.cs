@@ -3,7 +3,7 @@ using WebArMa.ArMaMelk.API.Domain.RealStates.Enums;
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Property : EntityBase
+    public class Property : EntityBase
     {
         public static Property Create(string title, PropertyType propertyType, UsageType usageType, Address address, Specifications specifications, Features features, PropertyOwnership propertyOwnership, Building? building = null)
         {
@@ -20,7 +20,6 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
                 Building = building
             };
         }
-
         public void Update(string title, PropertyType propertyType, UsageType usageType, Address address, Specifications specifications, Features features, PropertyOwnership propertyOwnership, Building? building = null)
         {
             Title = title.Trim();
@@ -47,11 +46,11 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
         public PropertyType PropertyType { get; private set; }
         public UsageType UsageType { get; private set; }
         public PropertyStatus Status { get; private set; }
-        public Address Address { get; private set; }
-        public Specifications Specifications { get; private set; }
-        public Features Features { get; private set; }
-        public PropertyOwnership PropertyOwnership { get; private set; }
+        public virtual Address Address { get; private set; }
+        public virtual Specifications Specifications { get; private set; }
+        public virtual Features Features { get; private set; }
+        public virtual PropertyOwnership PropertyOwnership { get; private set; }
         public int? BuildingId { get; private set; }
-        public Building? Building { get; private set; }
+        public virtual Building? Building { get; private set; }
     }
 }

@@ -3,7 +3,7 @@ using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Address : EntityBase
+    public class Address : EntityBase
     {
         public static Address Create(Neighborhood neighborhood, string systemAddress, string addressLine, Point? location = null)
         {
@@ -15,21 +15,12 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
                 Location = location
             };
         }
-
-        public void ChangeAddressLine(string addressLine)
+        public void Update(Neighborhood neighborhood, string systemAddress, string addressLine, Point? location = null)
         {
-            AddressLine = ValidateAddressLine(addressLine);
-        }
-
-        public void ChangeLocation(Point? location)
-        {
+            Neighborhood = neighborhood;
+            SystemAddress = systemAddress;
+            AddressLine = addressLine;
             Location = location;
-        }
-
-        private static string ValidateAddressLine(string value)
-        {
-            ArgumentException.ThrowIfNullOrWhiteSpace(value);
-            return value.Trim();
         }
 
         private Address()

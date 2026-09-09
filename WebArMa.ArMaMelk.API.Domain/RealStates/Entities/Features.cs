@@ -1,6 +1,6 @@
 ﻿namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Features
+    public class Features
     {
         public static Features Create(bool hasParking, int? parkingCount, bool hasStorage, decimal? storageArea, bool hasElevator, bool hasBalcony, bool hasTerrace, bool hasYard, bool hasPool, bool hasSauna, bool hasJacuzzi, bool hasSecurity, bool hasCCTV)
         {
@@ -21,7 +21,6 @@
                 HasCCTV = hasCCTV
             };
         }
-
         public void Update(bool hasParking = false, int? parkingCount = null, bool hasStorage = false, decimal? storageArea = null, bool hasElevator = false, bool hasBalcony = false, bool hasTerrace = false, bool hasYard = false, bool hasPool = false, bool hasSauna = false, bool hasJacuzzi = false, bool hasSecurity = false, bool hasCCTV = false)
         {
             HasParking = hasParking;
