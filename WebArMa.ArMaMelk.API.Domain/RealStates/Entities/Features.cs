@@ -1,6 +1,8 @@
-﻿namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
+﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
+
+namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public class Features
+    public class Features : EntityBase
     {
         public static Features Create(bool hasParking, int? parkingCount, bool hasStorage, decimal? storageArea, bool hasElevator, bool hasBalcony, bool hasTerrace, bool hasYard, bool hasPool, bool hasSauna, bool hasJacuzzi, bool hasSecurity, bool hasCCTV)
         {

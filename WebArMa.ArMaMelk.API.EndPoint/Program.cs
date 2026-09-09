@@ -1,6 +1,7 @@
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
+using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations;
 using WebArMa.ArMaMelk.Persistence.Contexts;
@@ -11,7 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!));
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("PostgreSQL"),
+        npgsqlOptions =>
+        {
+            npgsqlOptions.UseNetTopologySuite();
+        });
+});
+
+builder.Services.AddTransient<IDatabaseContext, DatabaseContext>();
 
 builder.Services.AddAuthenticationConfig(builder.Configuration);
 builder.Services.AddApiVersioningConfig();

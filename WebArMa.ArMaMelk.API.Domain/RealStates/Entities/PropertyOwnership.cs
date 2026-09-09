@@ -1,9 +1,10 @@
-﻿using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
+﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
+using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 using WebArMa.ArMaMelk.API.Domain.RealStates.Enums;
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public class PropertyOwnership
+    public class PropertyOwnership : EntityBase
     {
         public static PropertyOwnership Create(Person person, PropertyDocumentType documentType, PropertyDocumentStatus documentStatus, PropertyOwnershipType ownershipType)
         {

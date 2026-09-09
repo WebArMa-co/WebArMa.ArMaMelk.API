@@ -1,6 +1,8 @@
-﻿namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
+﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
+
+namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Specifications
+    public sealed class Specifications : EntityBase
     {
         public static Specifications Create(decimal area, decimal? landArea = null, int? rooms = null, int? bedrooms = null, int? floor = null, int? totalFloors = null, int? unitCount = null, int? unitPerFloor = null, int? yearBuilt = null)
         {
