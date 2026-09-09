@@ -21,8 +21,9 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
         public async ValueTask<Guid> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
+            var maxAttemptCount = Convert.ToInt32(configuration["Otp:MaxAttemptCount"]);
             var hashedOTP = Hasher.Hash(request.Code, secret);
-            var otp = await databaseContext.OTPs.FirstOrDefaultAsync(o => !o.IsUsed && o.IsActive && o.UserName == request.UserName && o.CodeHash == hashedOTP, cancellationToken) ?? throw new NotFoundException(nameof(OTP));
+            var otp = await databaseContext.OTPs.FirstOrDefaultAsync(o => !o.IsUsed && o.IsActive(maxAttemptCount) && o.UserName == request.UserName && o.CodeHash == hashedOTP, cancellationToken) ?? throw new NotFoundException(nameof(OTP));
             otp.MarkAsUsed();
 
             var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName, cancellationToken: cancellationToken);
