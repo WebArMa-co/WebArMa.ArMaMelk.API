@@ -28,7 +28,7 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
         public string Name { get; private set; }
         public string FamilyName { get; private set; }
         public string PhoneNumber { get; private set; }
-        public virtual IReadOnlyCollection<User> Users { get; set; }
-        public virtual IReadOnlyCollection<Property> Properties { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Property> Properties { get; set; }
     }
 }

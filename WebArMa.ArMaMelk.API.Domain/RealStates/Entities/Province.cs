@@ -11,6 +11,6 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
         }
 
         public string Name { get; private set; }
-        public virtual IReadOnlyCollection<City> Cities { get; private set; }
+        public virtual ICollection<City> Cities { get; private set; }
     }
 }

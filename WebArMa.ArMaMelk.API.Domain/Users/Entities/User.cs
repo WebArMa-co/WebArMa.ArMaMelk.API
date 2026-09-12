@@ -41,6 +41,6 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
         public Guid PersonGuid { get; set; }
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
-        public virtual IReadOnlyCollection<Property> Properties { get; set; }
+        public virtual ICollection<Property> Properties { get; set; }
     }
 }
