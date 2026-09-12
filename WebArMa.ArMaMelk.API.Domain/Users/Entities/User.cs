@@ -6,11 +6,12 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
 {
     public class User : EntityBase
     {
-        public static User Create(string userName)
+        public static User Create(string userName, Person person)
         {
             return new User
             {
                 UserName = userName.Trim(),
+                Person = person
             };
         }
 

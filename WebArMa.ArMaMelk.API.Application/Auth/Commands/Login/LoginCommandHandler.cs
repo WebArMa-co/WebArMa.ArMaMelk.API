@@ -48,7 +48,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 
             if (user == null)
             {
-                user = User.Create(request.UserName);
+                user = User.Create(request.UserName, person);
                 await databaseContext.Users.AddAsync(user, cancellationToken);
                 await databaseContext.SaveChangesAsync(cancellationToken);
             }
