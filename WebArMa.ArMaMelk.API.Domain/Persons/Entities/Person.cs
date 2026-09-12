@@ -6,14 +6,14 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
 {
     public class Person : EntityBase
     {
-        public static Person Create(string name, string familyName, string phoneNumber)
+        public static Person Create(string phoneNumber)
         {
-            return new Person { Name = name.Trim(), FamilyName = familyName.Trim(), PhoneNumber = phoneNumber.Trim() };
+            return new Person { PhoneNumber = phoneNumber.Trim() };
         }
         public void Update(string name, string familyName)
         {
-            Name = name;
-            FamilyName = familyName;
+            Name = name.Trim();
+            FamilyName = familyName.Trim();
         }
 
         private Person()
