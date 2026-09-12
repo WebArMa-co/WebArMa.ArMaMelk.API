@@ -11,7 +11,8 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
             return new User
             {
                 UserName = userName.Trim(),
-                Person = person
+                Person = person,
+                PersonGuid = person.Guid,
             };
         }
 

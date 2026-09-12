@@ -5,10 +5,11 @@ namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
 {
     public class Token : EntityBase
     {
-        public static Token Create(Guid userGuid, string refreshToken, DateTimeOffset expiresAt)
+        public static Token Create(Guid userGuid, string refreshToken, DateTimeOffset expiresAt, User user)
         {
             return new Token
             {
+                User = user,
                 UserGuid = userGuid,
                 RefreshToken = refreshToken,
                 ExpiresAt = expiresAt

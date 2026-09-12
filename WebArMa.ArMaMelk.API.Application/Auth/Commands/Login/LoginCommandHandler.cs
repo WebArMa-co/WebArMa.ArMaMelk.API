@@ -92,7 +92,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             var refreshTokenArray = Guid.NewGuid();
             var refreshTokenValue = refreshTokenArray.ToString("N");
 
-            var refreshToken = Token.Create(user.Guid, refreshTokenValue, DateTimeOffset.UtcNow.AddMinutes(refreshExpires));
+            var refreshToken = Token.Create(user.Guid, refreshTokenValue, DateTimeOffset.UtcNow.AddMinutes(refreshExpires), user);
 
             await databaseContext.Tokens.AddAsync(refreshToken);
             await databaseContext.SaveChangesAsync();
