@@ -18,9 +18,9 @@ using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 {
-    public class LoginCommandHandler(IConfiguration configuration, IDatabaseContext databaseContext, IRedisService redisService) : IRequestHandler<LoginCommand, TokenDto>
+    public class LoginCommandHandler(IConfiguration configuration, IDatabaseContext databaseContext, IRedisService redisService) : IRequestHandler<LoginCommand, TokenDTO>
     {
-        public async ValueTask<TokenDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async ValueTask<TokenDTO> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
             var maxAttemptCount = Convert.ToInt32(configuration["Otp:MaxAttemptCount"]);
@@ -54,7 +54,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             return await GenerateToken(user, Guid.Empty, "");
         }
 
-        private async Task<TokenDto> GenerateToken(User user, Guid roleId, string accessCode)
+        private async Task<TokenDTO> GenerateToken(User user, Guid roleId, string accessCode)
         {
             var issuer = configuration["JWTConfig:Issuer"]!;
             var audience = configuration["JWTConfig:Audience"]!;
@@ -99,7 +99,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             var token = new JwtSecurityTokenHandler().WriteToken(accessToken);
             await redisService.SetAsync($"user:token-version:{user.Id}", user.TokenVersion.ToString());
 
-            return new TokenDto { Token = token, RefreshToken = refreshTokenValue };
+            return new TokenDTO { Token = token, RefreshToken = refreshTokenValue };
         }
     }
 }
