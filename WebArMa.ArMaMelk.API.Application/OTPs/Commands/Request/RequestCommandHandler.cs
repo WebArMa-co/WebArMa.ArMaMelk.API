@@ -17,7 +17,7 @@ namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.RequestOTP
             var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
             var expireTime = Convert.ToInt32(configuration["Otp:Expire"]);
             var hashedOTP = Hasher.Hash(otp, secret);
-            await databaseContext.OTPs.AddAsync(OTP.Create(request.PhoneNumber, hashedOTP, DateTime.Now.AddMinutes(expireTime)), cancellationToken);
+            await databaseContext.OTPs.AddAsync(OTP.Create(request.PhoneNumber, hashedOTP, DateTimeOffset.UtcNow.AddMinutes(expireTime)), cancellationToken);
             await databaseContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
