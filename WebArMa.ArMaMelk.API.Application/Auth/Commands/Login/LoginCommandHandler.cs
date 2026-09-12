@@ -23,7 +23,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
             var maxAttemptCount = Convert.ToInt32(configuration["Otp:MaxAttemptCount"]);
             var hashedOTP = Hasher.Hash(request.Code, secret);
-            var otp = await databaseContext.OTPs.OrderByDescending(o => o.CreatedAt).FirstOrDefaultAsync(o => !o.IsUsed && o.ExpiresAt > DateTimeOffset.UtcNow && o.AttemptCount < maxAttemptCount && o.UserName == request.UserName, cancellationToken) ?? throw new NotFoundException(nameof(OTP));
+            var otp = await databaseContext.OTPs.OrderByDescending(o => o.CreatedAt).FirstOrDefaultAsync(o => o.UsedAt != null && o.ExpiresAt > DateTimeOffset.UtcNow && o.AttemptCount < maxAttemptCount && o.UserName == request.UserName, cancellationToken) ?? throw new NotFoundException(nameof(OTP));
 
             otp.IncreaseAttempt();
 
