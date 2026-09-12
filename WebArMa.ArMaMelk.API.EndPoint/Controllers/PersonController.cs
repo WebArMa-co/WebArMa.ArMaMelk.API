@@ -3,7 +3,7 @@ using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson;
 using WebArMa.ArMaMelk.API.Application.Persons.Commands.UpdatePerson;
-using WebArMa.ArMaMelk.API.Application.Persons.Queries.GetPersonByGuid;
+using WebArMa.ArMaMelk.API.Application.Persons.Queries.GetByGuid;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {

@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
-using WebArMa.ArMaMelk.API.Application.OTPs.Commands.RequestOTP;
+using WebArMa.ArMaMelk.API.Application.OTPs.Commands.Request;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {

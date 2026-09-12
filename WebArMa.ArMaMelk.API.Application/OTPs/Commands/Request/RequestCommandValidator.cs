@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.RequestOTP
+namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.Request
 {
     public class RequestCommandValidator : AbstractValidator<RequestCommand>
     {

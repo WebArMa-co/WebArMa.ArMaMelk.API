@@ -6,7 +6,7 @@ using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 
-namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.RequestOTP
+namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.Request
 {
     public class RequestCommandHandler(IConfiguration configuration, IDatabaseContext databaseContext) : IRequestHandler<RequestCommand>
     {

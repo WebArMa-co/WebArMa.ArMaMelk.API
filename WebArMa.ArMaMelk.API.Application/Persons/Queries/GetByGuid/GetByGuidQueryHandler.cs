@@ -6,7 +6,7 @@ using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application.Persons.DTOs;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Persons.Queries.GetPersonByGuid
+namespace WebArMa.ArMaMelk.API.Application.Persons.Queries.GetByGuid
 {
     public class GetByGuidQueryHandler(IDatabaseContext databaseContext, TypeAdapterConfig config) : IRequestHandler<GetByGuidQuery, PersonDTO>
     {
