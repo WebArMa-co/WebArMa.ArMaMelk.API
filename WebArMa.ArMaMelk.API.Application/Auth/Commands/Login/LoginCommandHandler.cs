@@ -37,21 +37,18 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             otp.MarkAsUsed();
             await databaseContext.SaveChangesAsync(cancellationToken);
 
-            var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName, cancellationToken: cancellationToken);
             var person = await databaseContext.Persons.FirstOrDefaultAsync(u => u.PhoneNumber == request.UserName, cancellationToken: cancellationToken);
 
             if (person == null)
             {
                 person = Person.Create(null, null, request.UserName);
                 await databaseContext.Persons.AddAsync(person, cancellationToken);
-            }
-
-            if (user == null)
-            {
-                user = User.Create(request.UserName, person);
-                await databaseContext.Users.AddAsync(user, cancellationToken);
+                var newUser = User.Create(request.UserName, person);
+                await databaseContext.Users.AddAsync(newUser, cancellationToken);
                 await databaseContext.SaveChangesAsync(cancellationToken);
             }
+
+            var user = await databaseContext.Users.FirstAsync(u => u.UserName == request.UserName, cancellationToken: cancellationToken);
 
             await GenerateToken(user, Guid.Empty, "");
 
