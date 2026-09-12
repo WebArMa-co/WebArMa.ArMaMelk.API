@@ -6,9 +6,9 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
 {
     public class Person : EntityBase
     {
-        public static Person Create(string phoneNumber)
+        public static Person Create(string? name, string? familyName, string phoneNumber)
         {
-            return new Person { PhoneNumber = phoneNumber.Trim() };
+            return new Person { Name = name?.Trim() ?? string.Empty, FamilyName = familyName?.Trim() ?? string.Empty, PhoneNumber = phoneNumber.Trim() };
         }
         public void Update(string name, string familyName)
         {

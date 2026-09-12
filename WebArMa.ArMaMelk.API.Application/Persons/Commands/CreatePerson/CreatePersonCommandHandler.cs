@@ -13,7 +13,7 @@ namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson
 
             if (person == null)
             {
-                person = Person.Create(request.FirstName, request.LastName, request.PhoneNumber);
+                person = Person.Create(request.Name, request.FamilyName, request.PhoneNumber);
                 await databaseContext.Persons.AddAsync(person, cancellationToken);
                 await databaseContext.SaveChangesAsync(cancellationToken);
             }

@@ -2,5 +2,5 @@
 
 namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson
 {
-    public record CreatePersonCommand(string FirstName, string LastName, string PhoneNumber) : IRequest<Guid>;
+    public record CreatePersonCommand(string Name, string FamilyName, string PhoneNumber) : IRequest<Guid>;
 }
