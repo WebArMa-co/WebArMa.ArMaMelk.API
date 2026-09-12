@@ -9,6 +9,8 @@ using WebArMa.ArMaMelk.Persistence.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddMediator(option => option.ServiceLifetime = ServiceLifetime.Transient);
+
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!));
