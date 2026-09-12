@@ -9,6 +9,7 @@ using System.Text;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
+using WebArMa.ArMaMelk.API.Application.Auth.DTOs;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
@@ -17,9 +18,9 @@ using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 {
-    public class LoginCommandHandler(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IDatabaseContext databaseContext, IRedisService redisService) : IRequestHandler<LoginCommand, Guid>
+    public class LoginCommandHandler(IConfiguration configuration, IDatabaseContext databaseContext, IRedisService redisService) : IRequestHandler<LoginCommand, TokenDto>
     {
-        public async ValueTask<Guid> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async ValueTask<TokenDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
             var maxAttemptCount = Convert.ToInt32(configuration["Otp:MaxAttemptCount"]);
@@ -50,12 +51,10 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
 
             var user = await databaseContext.Users.FirstAsync(u => u.UserName == request.UserName, cancellationToken: cancellationToken);
 
-            await GenerateToken(user, Guid.Empty, "");
-
-            return user.Guid;
+            return await GenerateToken(user, Guid.Empty, "");
         }
 
-        private async Task GenerateToken(User user, Guid roleId, string accessCode)
+        private async Task<TokenDto> GenerateToken(User user, Guid roleId, string accessCode)
         {
             var issuer = configuration["JWTConfig:Issuer"]!;
             var audience = configuration["JWTConfig:Audience"]!;
@@ -98,28 +97,9 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             await databaseContext.SaveChangesAsync();
 
             var token = new JwtSecurityTokenHandler().WriteToken(accessToken);
-
             await redisService.SetAsync($"user:token-version:{user.Id}", user.TokenVersion.ToString());
 
-            httpContextAccessor.HttpContext!.Response.Cookies.Append("access_token", token,
-                new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(expires),
-                    Path = "/"
-                });
-
-            httpContextAccessor.HttpContext.Response.Cookies.Append("refresh_token", refreshTokenValue,
-                new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(refreshExpires),
-                    Path = "/"
-                });
+            return new TokenDto { Token = token, RefreshToken = refreshTokenValue };
         }
     }
 }
