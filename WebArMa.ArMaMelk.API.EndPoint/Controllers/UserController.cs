@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
-using WebArMa.ArMaMelk.API.Application.Users.Commands.Update;
+using WebArMa.ArMaMelk.API.Application.Users.Commands.UpdateUser;
 using WebArMa.ArMaMelk.API.Application.Users.Queries.GetByGuid;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
@@ -12,7 +12,7 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
     public class UserController(IMediator mediator) : ControllerBase
     {
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateCommand command)
+        public async Task<IActionResult> Update(UpdateUserCommand command)
         {
             var data = await mediator.Send(command);
             return Ok(data);
