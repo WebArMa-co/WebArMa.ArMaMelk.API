@@ -13,8 +13,9 @@ namespace WebArMa.ArMaMelk.API.Application._Shared.Contexts
         DbSet<Token> Tokens { get; set; }
         DbSet<Address> Addresses { get; set; }
         DbSet<City> Cities { get; set; }
-        DbSet<Neighborhood> Neighborhoods { get; set; }
+        DbSet<County> Counties { get; set; }
         DbSet<Province> Provinces { get; set; }
+        DbSet<Village> Villages { get; set; }
         DbSet<OTP> OTPs { get; set; }
         DbSet<Person> Persons { get; set; }
         DbSet<UserPerson> UserPersons { get; set; }

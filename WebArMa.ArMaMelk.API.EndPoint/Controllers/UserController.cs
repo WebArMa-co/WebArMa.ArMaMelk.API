@@ -19,9 +19,10 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
         }
 
         [HttpGet]
-        [Route("{query:guid}")]
-        public async Task<IActionResult> GetByGuid(GetByGuidQuery query)
+        [Route("{guid:guid}")]
+        public async Task<IActionResult> GetByGuid(Guid guid)
         {
+            var query = new GetByGuidQuery(guid);
             var data = await mediator.Send(query);
             return Ok(data);
         }

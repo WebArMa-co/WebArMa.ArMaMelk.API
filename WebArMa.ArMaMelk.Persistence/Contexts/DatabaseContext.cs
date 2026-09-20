@@ -17,8 +17,9 @@ namespace WebArMa.ArMaMelk.Persistence.Contexts
         public DbSet<Token> Tokens { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<Neighborhood> Neighborhoods { get; set; }
+        public DbSet<County> Counties { get; set; }
         public DbSet<Province> Provinces { get; set; }
+        public DbSet<Village> Villages { get; set; }
         public DbSet<OTP> OTPs { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<UserPerson> UserPersons { get; set; }

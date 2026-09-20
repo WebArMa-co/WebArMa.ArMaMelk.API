@@ -5,6 +5,7 @@ using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations;
 using WebArMa.ArMaMelk.Persistence.Contexts;
+using WebArMa.ArMaMelk.Persistence.Seeds;
 using WebArMa.ArMaMelk.Persistence.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,10 @@ builder.Services.AddAuthenticationConfig(builder.Configuration);
 builder.Services.AddApiVersioningConfig();
 builder.Services.AddTypeAdapterConfig();
 
+builder.Services.AddScoped<ProvinceSeeder>();
+builder.Services.AddScoped<CitySeeder>();
+builder.Services.AddScoped<CountySeeder>();
+builder.Services.AddScoped<VillageSeeder>();
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddScoped<IRedisService, RedisService>();
 
@@ -39,6 +44,21 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var provinceSeeder = services.GetRequiredService<ProvinceSeeder>();
+    var citySeeder = services.GetRequiredService<CitySeeder>();
+    var countySeeder = services.GetRequiredService<CountySeeder>();
+    var villageSeeder = services.GetRequiredService<VillageSeeder>();
+
+    await provinceSeeder.SeedAsync();
+    await citySeeder.SeedAsync();
+    await countySeeder.SeedAsync();
+    await villageSeeder.SeedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

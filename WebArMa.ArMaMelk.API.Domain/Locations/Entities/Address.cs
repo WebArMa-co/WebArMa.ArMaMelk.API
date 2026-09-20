@@ -5,19 +5,19 @@ namespace WebArMa.ArMaMelk.API.Domain.Locations.Entities
 {
     public class Address : EntityBase
     {
-        public static Address Create(Neighborhood neighborhood, string systemAddress, string addressLine, Point? location = null)
+        public static Address Create(Village village, string systemAddress, string addressLine, Point? location = null)
         {
             return new Address
             {
-                Neighborhood = neighborhood,
+                Village = village,
                 SystemAddress = systemAddress,
                 AddressLine = addressLine,
                 Location = location
             };
         }
-        public void Update(Neighborhood neighborhood, string systemAddress, string addressLine, Point? location = null)
+        public void Update(Village village, string systemAddress, string addressLine, Point? location = null)
         {
-            Neighborhood = neighborhood;
+            Village = village;
             SystemAddress = systemAddress;
             AddressLine = addressLine;
             Location = location;
@@ -27,13 +27,13 @@ namespace WebArMa.ArMaMelk.API.Domain.Locations.Entities
         {
             SystemAddress = null!;
             AddressLine = null!;
-            Neighborhood = null!;
+            Village = null!;
         }
 
         public string SystemAddress { get; private set; }
         public string AddressLine { get; private set; }
         public Point? Location { get; private set; }
-        public int NeighborhoodId { get; private set; }
-        public Neighborhood Neighborhood { get; private set; }
+        public int VillageId { get; private set; }
+        public Village Village { get; private set; }
     }
 }

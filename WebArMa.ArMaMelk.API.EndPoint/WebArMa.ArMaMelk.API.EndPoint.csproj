@@ -36,4 +36,8 @@
 		<ProjectReference Include="..\WebArMa.ArMaMelk.Persistence\WebArMa.ArMaMelk.Persistence.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="JSONs\" />
+	</ItemGroup>
+
 </Project>
