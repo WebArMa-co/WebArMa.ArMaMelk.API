@@ -15,13 +15,12 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
                 PersonGuid = person.Guid,
             };
         }
-
-        public void Update(string? displayName = null, string? photoURL = null)
+        public void Update(string? displayName, string? photoURL, List<Role>? roles)
         {
             DisplayName = displayName?.Trim();
             PhotoURL = photoURL?.Trim();
+            Roles = roles ?? [];
         }
-
         public void RevokeAllTokens()
         {
             TokenVersion++;
@@ -32,16 +31,18 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
             UserName = string.Empty;
             Person = null!;
             Properties = [];
+            Roles = [];
         }
 
-        public long TokenVersion { get; set; }
+        public long TokenVersion { get; private set; }
         public string UserName { get; private set; }
         public string? DisplayName { get; private set; }
         public string? PhotoURL { get; private set; }
         public string EffectiveDisplayName => !string.IsNullOrWhiteSpace(DisplayName) ? DisplayName : UserName;
-        public Guid PersonGuid { get; set; }
-        public int PersonId { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual ICollection<Property> Properties { get; set; }
+        public Guid PersonGuid { get; private set; }
+        public int PersonId { get; private set; }
+        public virtual Person Person { get; private set; }
+        public virtual ICollection<Property> Properties { get; private set; }
+        public virtual ICollection<Role> Roles { get; private set; }
     }
 }

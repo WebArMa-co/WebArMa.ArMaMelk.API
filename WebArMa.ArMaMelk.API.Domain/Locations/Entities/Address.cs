@@ -1,7 +1,7 @@
 ﻿using NetTopologySuite.Geometries;
 using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
 
-namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
+namespace WebArMa.ArMaMelk.API.Domain.Locations.Entities
 {
     public class Address : EntityBase
     {

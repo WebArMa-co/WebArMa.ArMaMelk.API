@@ -31,7 +31,7 @@ namespace WebArMa.ArMaMelk.API.Domain.Auth.Entities
         public DateTimeOffset? RevokedAt { get; private set; }
         public Guid UserGuid { get; private set; }
         public int UserId { get; private set; }
-        public virtual User User { get; set; }
+        public virtual User User { get; private set; }
         public bool IsActive => RevokedAt == null && ExpiresAt > DateTimeOffset.UtcNow;
     }
 }

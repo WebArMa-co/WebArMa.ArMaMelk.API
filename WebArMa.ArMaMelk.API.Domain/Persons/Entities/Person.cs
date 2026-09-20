@@ -23,12 +23,15 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
             PhoneNumber = string.Empty;
             Users = [];
             Properties = [];
+            UserPersons = [];
         }
 
         public string Name { get; private set; }
         public string FamilyName { get; private set; }
         public string PhoneNumber { get; private set; }
-        public virtual ICollection<User> Users { get; set; }
-        public virtual ICollection<Property> Properties { get; set; }
+        public string? NationalCode { get; private set; }
+        public virtual ICollection<User> Users { get; private set; }
+        public virtual ICollection<Property> Properties { get; private set; }
+        public virtual ICollection<UserPerson> UserPersons { get; private set; }
     }
 }

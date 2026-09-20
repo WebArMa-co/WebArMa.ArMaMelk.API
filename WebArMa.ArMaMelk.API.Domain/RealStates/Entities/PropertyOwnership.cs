@@ -32,8 +32,8 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
         public PropertyDocumentType DocumentType { get; private set; }
         public PropertyDocumentStatus DocumentStatus { get; private set; }
         public PropertyOwnershipType OwnershipType { get; private set; }
-        public Guid PersonGuid { get; set; }
-        public int PersonId { get; set; }
+        public Guid PersonGuid { get; private set; }
+        public int PersonId { get; private set; }
         public virtual Person Person { get; private set; }
     }
 }

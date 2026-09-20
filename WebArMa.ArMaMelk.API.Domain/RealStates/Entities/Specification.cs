@@ -2,11 +2,11 @@
 
 namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
 {
-    public sealed class Specifications : EntityBase
+    public sealed class Specification : EntityBase
     {
-        public static Specifications Create(decimal area, decimal? landArea = null, int? rooms = null, int? bedrooms = null, int? floor = null, int? totalFloors = null, int? unitCount = null, int? unitPerFloor = null, int? yearBuilt = null)
+        public static Specification Create(decimal area, decimal? landArea = null, int? rooms = null, int? bedrooms = null, int? floor = null, int? totalFloors = null, int? unitCount = null, int? unitPerFloor = null, int? yearBuilt = null)
         {
-            return new Specifications
+            return new Specification
             {
                 Area = area,
                 LandArea = landArea,
@@ -32,7 +32,7 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
             YearBuilt = yearBuilt;
         }
 
-        private Specifications()
+        private Specification()
         {
         }
 
