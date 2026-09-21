@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using WebArMa.ArMaMelk.API.Application.Redis;
+using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations
 {
@@ -12,6 +13,7 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
+                options.MapInboundClaims = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

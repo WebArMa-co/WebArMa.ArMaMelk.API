@@ -1,7 +1,11 @@
 using MapsterMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
+using WebArMa.ArMaMelk.API.Application.Auth.Commands.Login;
+using WebArMa.ArMaMelk.API.Application.Auth.Services;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations;
 using WebArMa.ArMaMelk.Persistence.Contexts;
@@ -37,6 +41,7 @@ builder.Services.AddScoped<CountySeeder>();
 builder.Services.AddScoped<VillageSeeder>();
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddScoped<IRedisService, RedisService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -78,6 +83,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

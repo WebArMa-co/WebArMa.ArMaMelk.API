@@ -1,8 +1,10 @@
 using Asp.Versioning;
 using Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebArMa.ArMaMelk.API.Application.Auth.Commands.Login;
 using WebArMa.ArMaMelk.API.Application.Auth.Commands.Logout;
+using WebArMa.ArMaMelk.API.Application.Auth.Commands.RefreshLogin;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {
@@ -19,7 +21,17 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
             return Ok(data);
         }
 
+        [HttpPut]
+        [Authorize]
+        [Route("[action]")]
+        public async Task<IActionResult> RefreshLogin()
+        {
+            var data = await mediator.Send(new RefreshLoginCommand());
+            return Ok(data);
+        }
+
         [HttpPost]
+        [Authorize]
         [Route("[action]")]
         public async Task<IActionResult> Logout(LogoutCommand command)
         {
