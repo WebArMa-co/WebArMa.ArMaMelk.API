@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson
+namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.Create
 {
-    public class CreatePersonCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<CreatePersonCommand, Guid>
+    public class CreateCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<CreateCommand, Guid>
     {
-        public async ValueTask<Guid> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
+        public async ValueTask<Guid> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
             var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.PhoneNumber == request.PhoneNumber, cancellationToken);
 

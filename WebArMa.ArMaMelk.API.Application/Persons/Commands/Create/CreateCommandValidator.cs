@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson
+namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.Create
 {
-    public class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
+    public class CreateCommandValidator : AbstractValidator<CreateCommand>
     {
-        public CreatePersonCommandValidator()
+        public CreateCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithErrorCode("FirstName-Required").MinimumLength(3).WithErrorCode("FirstName-MinimumLength");
             RuleFor(x => x.FamilyName).NotEmpty().WithErrorCode("LastName-Required").MinimumLength(3).WithErrorCode("LastName-MinimumLength");

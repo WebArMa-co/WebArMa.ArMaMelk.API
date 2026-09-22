@@ -1,8 +1,8 @@
 using Asp.Versioning;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
-using WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson;
-using WebArMa.ArMaMelk.API.Application.Persons.Commands.UpdatePerson;
+using WebArMa.ArMaMelk.API.Application.Persons.Commands.Create;
+using WebArMa.ArMaMelk.API.Application.Persons.Commands.Update;
 using WebArMa.ArMaMelk.API.Application.Persons.Queries.GetByGuid;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
@@ -13,14 +13,14 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
     public class PersonController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Create(CreatePersonCommand command)
+        public async Task<IActionResult> Create(CreateCommand command)
         {
             var data = await mediator.Send(command);
             return Ok(data);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdatePersonCommand command)
+        public async Task<IActionResult> Update(UpdateCommand command)
         {
             var data = await mediator.Send(command);
             return Ok(data);

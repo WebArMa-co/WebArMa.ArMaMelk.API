@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.UpdatePerson
+namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.Update
 {
-    public class UpdatePersonCommandValidator : AbstractValidator<UpdatePersonCommand>
+    public class UpdateCommandValidator : AbstractValidator<UpdateCommand>
     {
-        public UpdatePersonCommandValidator()
+        public UpdateCommandValidator()
         {
             RuleFor(x => x.Guid).NotEmpty().WithErrorCode("Guid-Required");
             RuleFor(x => x.LastName).NotEmpty().WithErrorCode("LastName-Required").MinimumLength(3).WithErrorCode("LastName-MinimumLength");

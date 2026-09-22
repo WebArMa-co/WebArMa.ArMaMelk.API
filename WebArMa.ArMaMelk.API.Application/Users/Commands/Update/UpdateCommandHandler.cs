@@ -6,11 +6,11 @@ using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Users.Commands.UpdateUser
+namespace WebArMa.ArMaMelk.API.Application.Users.Commands.Update
 {
-    public class UpdateUserCommandHandler(IDatabaseContext databaseContext, IHttpContextAccessor httpContextAccessor) : IRequestHandler<UpdateUserCommand>
+    public class UpdateCommandHandler(IDatabaseContext databaseContext, IHttpContextAccessor httpContextAccessor) : IRequestHandler<UpdateCommand>
     {
-        public async ValueTask<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async ValueTask<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             var stringUserGuid = httpContextAccessor.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
 

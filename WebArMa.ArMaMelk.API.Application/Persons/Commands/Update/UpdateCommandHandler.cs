@@ -4,11 +4,11 @@ using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.UpdatePerson
+namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.Update
 {
-    public class UpdatePersonCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<UpdatePersonCommand>
+    public class UpdateCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<UpdateCommand>
     {
-        public async ValueTask<Unit> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
+        public async ValueTask<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken) ?? throw new NotFoundException(entity: nameof(Person));
             person.Update(request.FirstName, request.LastName);
