@@ -1,11 +1,13 @@
 using Asp.Versioning;
 using Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebArMa.ArMaMelk.API.Application.Users.Commands.Update;
 using WebArMa.ArMaMelk.API.Application.Users.Queries.GetByGuid;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {
+    [Authorize]
     [ApiController]
     [ApiVersion(1.0)]
     [Route("api/v{version:apiVersion}/[controller]")]
