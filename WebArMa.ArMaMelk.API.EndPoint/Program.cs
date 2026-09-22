@@ -18,8 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!));
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("PostgreSQL"),
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"),
         npgsqlOptions =>
         {
             npgsqlOptions.UseNetTopologySuite();

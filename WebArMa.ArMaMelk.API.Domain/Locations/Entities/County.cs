@@ -14,6 +14,6 @@ namespace WebArMa.ArMaMelk.API.Domain.Locations.Entities
         public string Name { get; private set; }
         public int CityId { get; private set; }
         public virtual City City { get; private set; }
-        public virtual ICollection<Village> Villages { get;  private set; }
+        public virtual ICollection<Village> Villages { get; private set; }
     }
 }

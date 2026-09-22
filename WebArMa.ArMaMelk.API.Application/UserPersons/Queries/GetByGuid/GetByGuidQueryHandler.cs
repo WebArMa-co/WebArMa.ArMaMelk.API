@@ -15,7 +15,7 @@ namespace WebArMa.ArMaMelk.API.Application.UserPersons.Queries.GetByGuid
         {
             var stringUserGuid = httpContextAccessor.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
 
-            if (Guid.TryParse(stringUserGuid, out Guid userGuid))
+            if (!Guid.TryParse(stringUserGuid, out Guid userGuid))
             {
                 throw new UnauthorizedAccessException();
             }

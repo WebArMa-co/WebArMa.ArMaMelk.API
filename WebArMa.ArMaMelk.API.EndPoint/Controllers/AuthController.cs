@@ -14,6 +14,7 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
     public class AuthController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
+        [AllowAnonymous]
         [Route("[action]")]
         public async Task<IActionResult> Login(LoginCommand command)
         {
@@ -22,7 +23,7 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        [AllowAnonymous]
         [Route("[action]")]
         public async Task<IActionResult> RefreshLogin()
         {
@@ -31,7 +32,6 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("[action]")]
         public async Task<IActionResult> Logout(LogoutCommand command)
         {

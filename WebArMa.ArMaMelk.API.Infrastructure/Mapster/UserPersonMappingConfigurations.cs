@@ -8,7 +8,7 @@ namespace WebArMa.ArMaMelk.API.Infrastructure.Mapster
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<UserPerson, UserPersonDTO>().Map(dest => dest.PhoneNumber, src => src.Person.PhoneNumber);
+            config.NewConfig<UserPerson, UserPersonDTO>().Map(des => des.PhoneNumber, src => src.Person.PhoneNumber);
         }
     }
 }

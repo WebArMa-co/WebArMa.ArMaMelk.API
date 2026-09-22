@@ -8,7 +8,7 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations
         public static IServiceCollection AddTypeAdapterConfig(this IServiceCollection services)
         {
             var config = TypeAdapterConfig.GlobalSettings;
-            config.Scan(typeof(PersonMappingConfigurations).Assembly);
+            config.Scan(typeof(UserMappingConfigurations).Assembly);
             services.AddSingleton(config);
 
             return services;

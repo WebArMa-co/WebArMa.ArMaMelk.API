@@ -4,6 +4,9 @@ namespace WebArMa.ArMaMelk.API.Application.Users.DTOs
 {
     public class UserDTO : DTOBase
     {
+        public string Name { get; set; } = string.Empty;
+        public string FamilyName { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
         public string? DisplayName { get; set; }
         public string? PhotoUrl { get; set; }
