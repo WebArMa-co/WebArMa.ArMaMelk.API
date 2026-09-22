@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
+using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application.Redis;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Logout
@@ -13,7 +14,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Logout
         public async ValueTask<Unit> Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
             var userId = httpContextAccessor.HttpContext.User.GetUserId();
-            var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Guid == userId, cancellationToken) ?? throw new UnauthorizedAccessException();
+            var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Guid == userId, cancellationToken) ?? throw new UnauthorizedException();
 
             if (request.TerminateAllSessions)
             {

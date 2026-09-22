@@ -16,7 +16,7 @@ namespace WebArMa.ArMaMelk.API.Application.UserPersons.Commands.Create
 
             if (!Guid.TryParse(stringUserGuid, out Guid userGuid))
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedException();
             }
 
             var userPerson = await databaseContext.UserPersons.Include(u => u.Person).FirstOrDefaultAsync(u => u.UserGuid == userGuid && u.Person.PhoneNumber == request.PhoneNumber, cancellationToken);

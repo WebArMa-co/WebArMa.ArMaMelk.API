@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
+using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application.Auth.DTOs;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
@@ -21,7 +22,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Services
             var expires = int.Parse(configuration["JWTConfig:AccessTokenExpirationMinutes"]!);
             var refreshExpires = int.Parse(configuration["JWTConfig:RefreshTokenExpirationDays"]!);
 
-            var user = await databaseContext.Users.Include(u => u.Person).FirstOrDefaultAsync(u => u.Id == userId, cancellationToken) ?? throw new UnauthorizedAccessException();
+            var user = await databaseContext.Users.Include(u => u.Person).FirstOrDefaultAsync(u => u.Id == userId, cancellationToken) ?? throw new UnauthorizedException();
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
             var jti = Guid.NewGuid().ToString("N");
 

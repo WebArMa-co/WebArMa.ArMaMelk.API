@@ -7,8 +7,8 @@ namespace WebArMa.ArMaMelk.API.Application.UserPersons.Queries.Get
     {
         public GetQueryValidator()
         {
-            RuleFor(x => x.Page).GreaterThan(0).WithErrorCode("Page-GreaterThan-0");
-            RuleFor(x => x.PageSize).GreaterThan(0).WithErrorCode("PageSize-GreaterThan-0");
+            RuleFor(x => x.Page).GreaterThan(0).WithErrorCode("GreaterThan:0");
+            RuleFor(x => x.PageSize).GreaterThan(0).WithErrorCode("GreaterThan:0");
         }
     }
 }

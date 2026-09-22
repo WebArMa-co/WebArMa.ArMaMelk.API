@@ -6,9 +6,9 @@ namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.Create
     {
         public CreateCommandValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithErrorCode("FirstName-Required").MinimumLength(3).WithErrorCode("FirstName-MinimumLength");
-            RuleFor(x => x.FamilyName).NotEmpty().WithErrorCode("LastName-Required").MinimumLength(3).WithErrorCode("LastName-MinimumLength");
-            RuleFor(x => x.PhoneNumber).NotEmpty().WithErrorCode("PhoneNumber-Required").Matches(@"^09\d{9}$").WithErrorCode("PhoneNumber-Invalid");
+            RuleFor(x => x.Name).NotEmpty().WithErrorCode("Required").MinimumLength(3).WithErrorCode("MinimumLength:3");
+            RuleFor(x => x.FamilyName).NotEmpty().WithErrorCode("Required").MinimumLength(3).WithErrorCode("MinimumLength:3");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithErrorCode("Required").Matches(@"^09\d{9}$").WithErrorCode("Invalid");
         }
     }
 }

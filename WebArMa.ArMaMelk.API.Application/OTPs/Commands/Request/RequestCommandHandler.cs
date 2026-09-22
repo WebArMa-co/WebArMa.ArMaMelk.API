@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
+using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 
@@ -14,7 +15,7 @@ namespace WebArMa.ArMaMelk.API.Application.OTPs.Commands.Request
         {
             var otp = RandomNumberGenerator.GetInt32(10000, 100000).ToString();
             Debugger.Break();
-            var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
+            var secret = configuration["Otp:Secret"] ?? throw new ConfigurationException("Otp:Secret");
             var expireTime = Convert.ToInt32(configuration["Otp:Expire"]);
             var hashedOTP = Hasher.Hash(otp, secret);
             await databaseContext.OTPs.AddAsync(OTP.Create(request.PhoneNumber, hashedOTP, DateTimeOffset.UtcNow.AddMinutes(expireTime)), cancellationToken);

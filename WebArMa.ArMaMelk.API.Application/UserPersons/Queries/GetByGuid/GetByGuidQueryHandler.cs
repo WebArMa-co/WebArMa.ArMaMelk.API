@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Application.UserPersons.DTOs;
+using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application.UserPersons.Queries.GetByGuid
 {
@@ -17,10 +18,10 @@ namespace WebArMa.ArMaMelk.API.Application.UserPersons.Queries.GetByGuid
 
             if (!Guid.TryParse(stringUserGuid, out Guid userGuid))
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedException();
             }
 
-            return await databaseContext.UserPersons.ProjectToType<UserPersonDTO>(config).FirstOrDefaultAsync(u => u.Guid == request.Guid && u.UserGuid == userGuid) ?? throw new NotFoundException(entity: nameof(request.Guid));
+            return await databaseContext.UserPersons.ProjectToType<UserPersonDTO>(config).FirstOrDefaultAsync(u => u.Guid == request.Guid && u.UserGuid == userGuid) ?? throw new NotFoundException(nameof(UserPerson));
         }
     }
 }

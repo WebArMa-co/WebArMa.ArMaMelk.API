@@ -16,7 +16,7 @@ namespace WebArMa.ArMaMelk.API.Application.Users.Commands.Update
 
             if (!Guid.TryParse(stringUserGuid, out Guid userGuid))
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedException();
             }
 
             var user = await databaseContext.Users.Include(u => u.Person).FirstOrDefaultAsync(u => u.Guid == userGuid, cancellationToken) ?? throw new NotFoundException(nameof(User));

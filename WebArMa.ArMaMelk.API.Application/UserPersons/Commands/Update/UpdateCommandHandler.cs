@@ -14,16 +14,16 @@ namespace WebArMa.ArMaMelk.API.Application.UserPersons.Commands.Update
         {
             var currentUserId = httpContextAccessor.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
 
-            if (Guid.TryParse(currentUserId, out Guid userId))
+            if (!Guid.TryParse(currentUserId, out Guid userId))
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedException();
             }
 
-            var userPerson = await databaseContext.UserPersons.Include(u => u.Person).FirstOrDefaultAsync(u => u.Guid == request.UserPersonGuid, cancellationToken) ?? throw new NotFoundException(entity: nameof(request.UserPersonGuid));
+            var userPerson = await databaseContext.UserPersons.Include(u => u.Person).FirstOrDefaultAsync(u => u.Guid == request.UserPersonGuid, cancellationToken) ?? throw new NotFoundException(nameof(UserPerson));
 
             if (userPerson.UserGuid != userId)
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedException();
             }
 
             var person = userPerson.Person;

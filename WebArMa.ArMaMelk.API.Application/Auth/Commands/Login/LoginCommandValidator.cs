@@ -6,7 +6,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
     {
         public LoginCommandValidator()
         {
-            RuleFor(x => x.UserName).NotEmpty().WithErrorCode("UserName-Required");
+            RuleFor(x => x.UserName).NotEmpty().WithErrorCode("Required");
         }
     }
 }

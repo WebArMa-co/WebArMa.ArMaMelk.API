@@ -9,10 +9,10 @@ namespace WebArMa.ArMaMelk.API.Application.Users.Commands.Update
         private static readonly Regex PersianNameRegex = new(@"^[\u0621-\u063A\u0641-\u0648\u067E\u0686\u0698\u06AF\u06CC ]+$");
         public UpdateCommandValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithErrorCode("Name-Required").Matches(PersianNameRegex).WithErrorCode("Name-Invalid-PersianNameRegex").MaximumLength(100).WithErrorCode("Name-MaxLength-100");
-            RuleFor(x => x.FamilyName).NotEmpty().WithErrorCode("FamilyName-Required").Matches(PersianNameRegex).WithErrorCode("FamilyName-Invalid-PersianNameRegex").MaximumLength(100).WithErrorCode("FamilyName-MaxLength-100");
-            RuleFor(x => x.DisplayName).MaximumLength(100).WithErrorCode("DisplayName-MaxLength-100");
-            RuleFor(x => x.PhotoURL).MaximumLength(500).WithMessage("PhotoURL-Invalid-FileName").Must(BeValidUrl).WithMessage("PhotoUrl-Invalid-PhotoUrl");
+            RuleFor(x => x.Name).NotEmpty().WithErrorCode("Required").Matches(PersianNameRegex).WithErrorCode("Invalid").MaximumLength(100).WithErrorCode("MaxLength:100");
+            RuleFor(x => x.FamilyName).NotEmpty().WithErrorCode("Required").Matches(PersianNameRegex).WithErrorCode("Invalid").MaximumLength(100).WithErrorCode("MaxLength:100");
+            RuleFor(x => x.DisplayName).MaximumLength(100).WithErrorCode("MaxLength:100");
+            RuleFor(x => x.PhotoURL).MaximumLength(500).WithMessage("Invalid:FileName").Must(BeValidUrl).WithMessage("Invalid:PhotoUrl");
         }
 
         private static bool BeValidUrl(string url)

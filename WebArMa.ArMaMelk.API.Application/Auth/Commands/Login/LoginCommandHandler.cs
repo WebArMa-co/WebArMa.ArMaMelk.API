@@ -16,7 +16,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
     {
         public async ValueTask<TokenDTO> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var secret = configuration["Otp:Secret"] ?? throw new InvalidOperationException("OTP secret is not configured.");
+            var secret = configuration["Otp:Secret"] ?? throw new ConfigurationException("Otp:Secret");
             var maxAttemptCount = Convert.ToInt32(configuration["Otp:MaxAttemptCount"]);
             var hashedOTP = Hasher.Hash(request.Code, secret);
             var otp = await databaseContext.OTPs.OrderByDescending(o => o.CreatedAt).FirstOrDefaultAsync(o => o.UsedAt == null && o.ExpiresAt > DateTimeOffset.UtcNow && o.AttemptCount < maxAttemptCount && o.UserName == request.UserName, cancellationToken) ?? throw new NotFoundException(nameof(OTP));
@@ -26,7 +26,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             if (otp.CodeHash != hashedOTP)
             {
                 await databaseContext.SaveChangesAsync(cancellationToken);
-                throw new ArgumentException(nameof(OTP.CodeHash));
+                throw new InvalidArgumentException(nameof(OTP.CodeHash));
             }
 
             otp.MarkAsUsed();

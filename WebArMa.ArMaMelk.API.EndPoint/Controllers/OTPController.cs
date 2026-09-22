@@ -7,12 +7,12 @@ using WebArMa.ArMaMelk.API.Application.OTPs.Commands.Request;
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [ApiVersion(1.0)]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class OTPController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
-        [AllowAnonymous]
         [Route("Request")]
         public async Task<IActionResult> SendOtp(RequestCommand command)
         {

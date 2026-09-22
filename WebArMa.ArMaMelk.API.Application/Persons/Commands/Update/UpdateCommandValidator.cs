@@ -6,8 +6,8 @@ namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.Update
     {
         public UpdateCommandValidator()
         {
-            RuleFor(x => x.Guid).NotEmpty().WithErrorCode("Guid-Required");
-            RuleFor(x => x.LastName).NotEmpty().WithErrorCode("LastName-Required").MinimumLength(3).WithErrorCode("LastName-MinimumLength");
+            RuleFor(x => x.Guid).NotEmpty().WithErrorCode("Required");
+            RuleFor(x => x.LastName).NotEmpty().WithErrorCode("Required").MinimumLength(3).WithErrorCode("MinimumLength");
         }
     }
 }
