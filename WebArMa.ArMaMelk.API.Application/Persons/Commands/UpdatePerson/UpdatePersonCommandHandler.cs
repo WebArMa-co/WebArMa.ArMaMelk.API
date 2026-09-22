@@ -10,7 +10,7 @@ namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.UpdatePerson
     {
         public async ValueTask<Unit> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
-            var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken: cancellationToken) ?? throw new NotFoundException(entity: nameof(Person));
+            var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken) ?? throw new NotFoundException(entity: nameof(Person));
             person.Update(request.FirstName, request.LastName);
             await databaseContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

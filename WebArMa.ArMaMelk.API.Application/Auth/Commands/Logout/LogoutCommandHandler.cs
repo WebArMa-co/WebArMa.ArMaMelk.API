@@ -13,7 +13,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Logout
         public async ValueTask<Unit> Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
             var userId = httpContextAccessor.HttpContext.User.GetUserId();
-            var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Guid == userId, cancellationToken: cancellationToken) ?? throw new UnauthorizedAccessException();
+            var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Guid == userId, cancellationToken) ?? throw new UnauthorizedAccessException();
 
             if (request.TerminateAllSessions)
             {

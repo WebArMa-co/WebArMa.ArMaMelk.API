@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
 namespace WebArMa.ArMaMelk.Persistence.Configurations

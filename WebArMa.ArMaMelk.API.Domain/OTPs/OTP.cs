@@ -23,7 +23,7 @@ namespace WebArMa.ArMaMelk.API.Domain.OTPs
         {
             UsedAt = DateTimeOffset.UtcNow;
         }
-        
+
         private OTP()
         {
             UserName = string.Empty;

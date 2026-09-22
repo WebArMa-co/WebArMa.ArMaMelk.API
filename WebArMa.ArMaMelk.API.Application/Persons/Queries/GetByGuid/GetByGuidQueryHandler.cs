@@ -12,7 +12,7 @@ namespace WebArMa.ArMaMelk.API.Application.Persons.Queries.GetByGuid
     {
         public async ValueTask<PersonDTO> Handle(GetByGuidQuery request, CancellationToken cancellationToken)
         {
-            var person = await databaseContext.Persons.ProjectToType<PersonDTO>(config).FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken: cancellationToken) ?? throw new NotFoundException(entity: nameof(Person));
+            var person = await databaseContext.Persons.ProjectToType<PersonDTO>(config).FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken) ?? throw new NotFoundException(entity: nameof(Person));
             return person;
         }
     }

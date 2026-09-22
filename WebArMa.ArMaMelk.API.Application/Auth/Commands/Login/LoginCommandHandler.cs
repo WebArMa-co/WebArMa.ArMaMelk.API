@@ -1,5 +1,4 @@
 ﻿using Mediator;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
@@ -33,7 +32,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
             otp.MarkAsUsed();
             await databaseContext.SaveChangesAsync(cancellationToken);
 
-            var person = await databaseContext.Persons.FirstOrDefaultAsync(u => u.PhoneNumber == request.UserName, cancellationToken: cancellationToken);
+            var person = await databaseContext.Persons.FirstOrDefaultAsync(u => u.PhoneNumber == request.UserName, cancellationToken);
 
             if (person == null)
             {
@@ -44,7 +43,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Login
                 await databaseContext.SaveChangesAsync(cancellationToken);
             }
 
-            var user = await databaseContext.Users.FirstAsync(u => u.UserName == request.UserName, cancellationToken: cancellationToken);
+            var user = await databaseContext.Users.FirstAsync(u => u.UserName == request.UserName, cancellationToken);
 
             return await generateTokenService.GenerateAsync(user.Id, Guid.Empty, "", cancellationToken);
         }

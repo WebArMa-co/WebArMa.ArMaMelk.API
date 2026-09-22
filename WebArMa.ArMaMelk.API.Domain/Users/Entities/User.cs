@@ -15,11 +15,10 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
                 PersonGuid = person.Guid,
             };
         }
-        public void Update(string? displayName, string? photoURL, List<Role>? roles)
+        public void Update(string? displayName, string? photoURL)
         {
             DisplayName = displayName?.Trim();
             PhotoURL = photoURL?.Trim();
-            Roles = roles ?? [];
         }
         public void RevokeAllTokens()
         {

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace WebArMa.ArMaMelk.API.Application._Shared.Helpers
+﻿namespace WebArMa.ArMaMelk.API.Application._Shared.Helpers
 {
     public static class PersianTextNormalizer
     {

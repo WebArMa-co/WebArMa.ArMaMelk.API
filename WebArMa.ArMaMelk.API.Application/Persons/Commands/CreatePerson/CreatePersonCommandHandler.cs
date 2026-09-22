@@ -9,7 +9,7 @@ namespace WebArMa.ArMaMelk.API.Application.Persons.Commands.CreatePerson
     {
         public async ValueTask<Guid> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
-            var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.PhoneNumber == request.PhoneNumber, cancellationToken: cancellationToken);
+            var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.PhoneNumber == request.PhoneNumber, cancellationToken);
 
             if (person == null)
             {

@@ -1,10 +1,7 @@
 using MapsterMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
-using WebArMa.ArMaMelk.API.Application.Auth.Commands.Login;
 using WebArMa.ArMaMelk.API.Application.Auth.Services;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations;

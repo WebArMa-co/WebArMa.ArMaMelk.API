@@ -1,4 +1,4 @@
-﻿namespace WebArMa.ArMaMelk.Persistence.Seeds
+﻿namespace WebArMa.ArMaMelk.Persistence.Seeds.DTOs
 {
     internal class CitySeedDTO
     {

@@ -29,8 +29,9 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
         public string EffectiveName => !string.IsNullOrWhiteSpace(Person?.Name) ? Person.Name : Name;
         public string EffectiveFamilyName => !string.IsNullOrWhiteSpace(Person?.FamilyName) ? Person.FamilyName : FamilyName;
         public int PersonId { get; set; }
+        public int UserId { get; set; }
+        public Guid UserGuid { get; set; }
         public virtual Person Person { get; set; }
-        public virtual int UserId { get; set; }
         public virtual User User { get; set; }
     }
 }
