@@ -29,7 +29,7 @@ namespace WebArMa.ArMaMelk.API.Application.Auth.Services
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Guid.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, jti),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.EffectiveDisplayName),
+                new Claim(JwtRegisteredClaimNames.GivenName, user.DisplayName ?? ""),
                 new Claim(JwtRegisteredClaimNames.Name, user.Person.Name),
                 new Claim(JwtRegisteredClaimNames.FamilyName, user.Person.FamilyName),
                 new Claim(JwtRegisteredClaimNames.PhoneNumber, user.Person.PhoneNumber),

@@ -37,7 +37,6 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
         public string UserName { get; private set; }
         public string? DisplayName { get; private set; }
         public string? PhotoURL { get; private set; }
-        public string EffectiveDisplayName => !string.IsNullOrWhiteSpace(DisplayName) ? DisplayName : UserName;
         public Guid PersonGuid { get; private set; }
         public int PersonId { get; private set; }
         public virtual Person Person { get; private set; }
