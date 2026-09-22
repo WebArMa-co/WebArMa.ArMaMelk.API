@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebArMa.ArMaMelk.API.Application.OTPs.Commands.Request;
 
@@ -11,6 +12,7 @@ namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
     public class OTPController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
+        [AllowAnonymous]
         [Route("Request")]
         public async Task<IActionResult> SendOtp(RequestCommand command)
         {
