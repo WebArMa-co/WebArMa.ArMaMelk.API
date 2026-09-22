@@ -24,14 +24,14 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
             User = null!;
         }
 
-        public string Name { get; set; }
-        public string FamilyName { get; set; }
+        public string Name { get; private set; }
+        public string FamilyName { get; private set; }
         public string EffectiveName => !string.IsNullOrWhiteSpace(Person?.Name) ? Person.Name : Name;
         public string EffectiveFamilyName => !string.IsNullOrWhiteSpace(Person?.FamilyName) ? Person.FamilyName : FamilyName;
-        public int PersonId { get; set; }
-        public int UserId { get; set; }
-        public Guid UserGuid { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual User User { get; set; }
+        public int PersonId { get; private set; }
+        public int UserId { get; private set; }
+        public Guid UserGuid { get; private set; }
+        public virtual Person Person { get; private set; }
+        public virtual User User { get; private set; }
     }
 }
