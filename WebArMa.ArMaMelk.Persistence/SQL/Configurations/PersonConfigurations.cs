@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 
-namespace WebArMa.ArMaMelk.Persistence.Configurations
+namespace WebArMa.ArMaMelk.Persistence.SQL.Configurations
 {
     public class PersonConfigurations : IEntityTypeConfiguration<Person>
     {

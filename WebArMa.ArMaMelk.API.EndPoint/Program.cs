@@ -5,9 +5,9 @@ using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application.Auth.Services;
 using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations;
-using WebArMa.ArMaMelk.Persistence.Contexts;
+using WebArMa.ArMaMelk.Persistence.Redis.Services;
 using WebArMa.ArMaMelk.Persistence.Seeds;
-using WebArMa.ArMaMelk.Persistence.Services;
+using WebArMa.ArMaMelk.Persistence.SQL.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 

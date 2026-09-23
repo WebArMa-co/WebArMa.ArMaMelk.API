@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System.Text.Json;
-using WebArMa.ArMaMelk.Persistence.Contexts;
 using WebArMa.ArMaMelk.Persistence.Seeds.DTOs;
+using WebArMa.ArMaMelk.Persistence.SQL.Contexts;
 
 namespace WebArMa.ArMaMelk.Persistence.Seeds
 {

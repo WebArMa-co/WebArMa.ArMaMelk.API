@@ -3,19 +3,22 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using WebArMa.ArMaMelk.Persistence.Contexts;
+using WebArMa.ArMaMelk.Persistence.SQL.Contexts;
 
 #nullable disable
 
 namespace WebArMa.ArMaMelk.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260920153815_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,6 +123,9 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Property<Point>("Location")
                         .HasColumnType("geometry (point)");
 
+                    b.Property<int>("NeighborhoodId")
+                        .HasColumnType("integer");
+
                     b.Property<byte[]>("RowVersion")
                         .IsRequired()
                         .HasColumnType("bytea");
@@ -134,12 +140,9 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Property<Guid?>("UpdatedByGuid")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("VillageId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("VillageId");
+                    b.HasIndex("NeighborhoodId");
 
                     b.ToTable("Addresses");
                 });
@@ -188,7 +191,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.County", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Neighborhood", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -229,7 +232,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Counties");
+                    b.ToTable("Neighborhoods");
                 });
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Province", b =>
@@ -269,50 +272,6 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
-                });
-
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Village", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CountyId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("CreatedByGuid")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("Guid")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsRequired()
-                        .HasColumnType("bytea");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("UpdatedByGuid")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountyId");
-
-                    b.ToTable("Villages");
                 });
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.OTPs.OTP", b =>
@@ -456,9 +415,6 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("UpdatedByGuid")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserGuid")
                         .HasColumnType("uuid");
 
                     b.Property<int>("UserId")
@@ -988,13 +944,13 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Address", b =>
                 {
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Village", "Village")
+                    b.HasOne("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Neighborhood", "Neighborhood")
                         .WithMany()
-                        .HasForeignKey("VillageId")
+                        .HasForeignKey("NeighborhoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Village");
+                    b.Navigation("Neighborhood");
                 });
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.City", b =>
@@ -1008,26 +964,15 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Navigation("Province");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.County", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Neighborhood", b =>
                 {
                     b.HasOne("WebArMa.ArMaMelk.API.Domain.Locations.Entities.City", "City")
-                        .WithMany("Counties")
+                        .WithMany("Neighborhoods")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Village", b =>
-                {
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.Locations.Entities.County", "County")
-                        .WithMany("Villages")
-                        .HasForeignKey("CountyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("County");
                 });
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Persons.Entities.UserPerson", b =>
@@ -1139,12 +1084,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.City", b =>
                 {
-                    b.Navigation("Counties");
-                });
-
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.County", b =>
-                {
-                    b.Navigation("Villages");
+                    b.Navigation("Neighborhoods");
                 });
 
             modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Province", b =>

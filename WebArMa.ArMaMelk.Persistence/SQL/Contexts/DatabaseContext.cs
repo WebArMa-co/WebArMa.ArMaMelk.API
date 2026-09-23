@@ -8,9 +8,9 @@ using WebArMa.ArMaMelk.API.Domain.OTPs;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
 using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
 using WebArMa.ArMaMelk.API.Domain.Users.Entities;
-using WebArMa.ArMaMelk.Persistence.Configurations;
+using WebArMa.ArMaMelk.Persistence.SQL.Configurations;
 
-namespace WebArMa.ArMaMelk.Persistence.Contexts
+namespace WebArMa.ArMaMelk.Persistence.SQL.Contexts
 {
     public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbContext(options), IDatabaseContext
     {

@@ -1,7 +1,7 @@
 ﻿using StackExchange.Redis;
 using WebArMa.ArMaMelk.API.Application.Redis;
 
-namespace WebArMa.ArMaMelk.Persistence.Services
+namespace WebArMa.ArMaMelk.Persistence.Redis.Services
 {
     public class RedisService(IConnectionMultiplexer redis) : IRedisService
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebArMa.ArMaMelk.API.Domain.Locations.Entities;
 
-namespace WebArMa.ArMaMelk.Persistence.Configurations
+namespace WebArMa.ArMaMelk.Persistence.SQL.Configurations
 {
     public class AddressConfigurations : IEntityTypeConfiguration<Address>
     {
