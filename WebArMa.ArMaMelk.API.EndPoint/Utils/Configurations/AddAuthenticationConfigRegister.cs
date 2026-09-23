@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using WebArMa.ArMaMelk.API.Application.Redis;
+using WebArMa.ArMaMelk.API.Application._Shared.Redis;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Utils.Configurations
 {

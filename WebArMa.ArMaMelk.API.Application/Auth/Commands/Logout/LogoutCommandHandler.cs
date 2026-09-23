@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Helpers;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
-using WebArMa.ArMaMelk.API.Application.Redis;
+using WebArMa.ArMaMelk.API.Application._Shared.Redis;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Commands.Logout
 {

@@ -1,4 +1,4 @@
-﻿namespace WebArMa.ArMaMelk.API.Application.Redis
+﻿namespace WebArMa.ArMaMelk.API.Application._Shared.Redis
 {
     public interface IRedisService
     {

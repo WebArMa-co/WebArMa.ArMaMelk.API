@@ -6,8 +6,8 @@ using System.Security.Claims;
 using System.Text;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
+using WebArMa.ArMaMelk.API.Application._Shared.Redis;
 using WebArMa.ArMaMelk.API.Application.Auth.DTOs;
-using WebArMa.ArMaMelk.API.Application.Redis;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application.Auth.Services

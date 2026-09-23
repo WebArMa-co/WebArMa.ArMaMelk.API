@@ -1,5 +1,5 @@
 ﻿using StackExchange.Redis;
-using WebArMa.ArMaMelk.API.Application.Redis;
+using WebArMa.ArMaMelk.API.Application._Shared.Redis;
 
 namespace WebArMa.ArMaMelk.Persistence.Redis.Services
 {
