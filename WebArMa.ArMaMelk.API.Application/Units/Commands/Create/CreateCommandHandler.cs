@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Domain.Locations.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
+namespace WebArMa.ArMaMelk.API.Application.Units.Commands.Create
 {
     public class CreateCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<CreateCommand, Guid>
     {
@@ -23,8 +23,8 @@ namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
                 request.Bedrooms,
                 request.Floor,
                 request.TotalFloors,
-                request.UnitCount,
-                request.UnitPerFloor,
+                request.RealEstateCount,
+                request.RealEstatePerFloor,
                 request.YearBuilt);
             var features = Features.Create(
                 request.HasParking,
@@ -40,27 +40,27 @@ namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
                 request.HasJacuzzi,
                 request.HasSecurity,
                 request.HasCCTV);
-            var ownership = PropertyOwnership.Create(
+            var ownership = RealEstateOwnership.Create(
                 person,
                 request.DocumentType,
                 request.DocumentStatus,
                 request.OwnershipType);
 
             Building? building = null;
-            if (request.BuildingTotalFloors.HasValue || request.BuildingUnitCount.HasValue || request.BuildingUnitPerFloor.HasValue ||
+            if (request.BuildingTotalFloors.HasValue || request.BuildingRealEstateCount.HasValue || request.BuildingRealEstatePerFloor.HasValue ||
                 request.ConstructionType.HasValue || request.FacadeType.HasValue)
             {
                 building = Building.Create(
                     request.BuildingTotalFloors,
-                    request.BuildingUnitCount,
-                    request.BuildingUnitPerFloor,
+                    request.BuildingRealEstateCount,
+                    request.BuildingRealEstatePerFloor,
                     request.ConstructionType,
                     request.FacadeType);
             }
 
-            var property = Property.Create(
+            var realEstate = RealEstate.Create(
                 request.Title,
-                request.PropertyType,
+                request.RealEstateType,
                 request.UsageType,
                 address,
                 specifications,
@@ -68,10 +68,10 @@ namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
                 ownership,
                 building);
 
-            await databaseContext.Properties.AddAsync(property, cancellationToken);
+            await databaseContext.RealEstates.AddAsync(realEstate, cancellationToken);
             await databaseContext.SaveChangesAsync(cancellationToken);
 
-            return property.Guid;
+            return realEstate.Guid;
         }
     }
 }

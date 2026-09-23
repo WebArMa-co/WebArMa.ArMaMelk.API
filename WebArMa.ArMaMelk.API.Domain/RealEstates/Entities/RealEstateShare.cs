@@ -1,15 +1,15 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
 using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
-namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
+namespace WebArMa.ArMaMelk.API.Domain.RealEstates.Entities
 {
-    public class PropertyShare : EntityBase
+    public class RealEstateShare : EntityBase
     {
-        public static PropertyShare Create(long propertyID, User? user = null, DateTimeOffset? expiresAt = null)
+        public static RealEstateShare Create(long realStateID, User? user = null, DateTimeOffset? expiresAt = null)
         {
-            return new PropertyShare
+            return new RealEstateShare
             {
-                PropertyID = propertyID,
+                RealEstateID = realStateID,
                 UserGuid = user?.Guid,
                 User = user,
                 Token = Guid.NewGuid().ToString("N"),
@@ -30,12 +30,12 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
             return RevokedAt is null && (ExpiresAt is null || ExpiresAt > now);
         }
 
-        public PropertyShare()
+        public RealEstateShare()
         {
-            Property = null!;
+            RealEstate = null!;
         }
 
-        public long PropertyID { get; private set; }
+        public long RealEstateID { get; private set; }
         public string Token { get; private set; } = null!;
         public Guid? UserGuid { get; private set; }
         public int? UserId { get; private set; }
@@ -44,6 +44,6 @@ namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
         public DateTimeOffset? RevokedAt { get; private set; }
         public int ViewCount { get; private set; }
         public DateTimeOffset? LastViewedAt { get; private set; }
-        public virtual Property Property { get; private set; }
+        public virtual RealEstate RealEstate { get; private set; }
     }
 }

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
+namespace WebArMa.ArMaMelk.API.Application.Units.Commands.Create
 {
     public class CreateCommandValidator : AbstractValidator<CreateCommand>
     {

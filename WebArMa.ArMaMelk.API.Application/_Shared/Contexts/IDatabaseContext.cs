@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Xml;
 using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.Locations.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Entities;
 using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Application._Shared.Contexts
@@ -21,9 +22,9 @@ namespace WebArMa.ArMaMelk.API.Application._Shared.Contexts
         DbSet<UserPerson> UserPersons { get; set; }
         DbSet<Building> Buildings { get; set; }
         DbSet<Features> Features { get; set; }
-        DbSet<Property> Properties { get; set; }
-        DbSet<PropertyOwnership> PropertyOwnerships { get; set; }
-        DbSet<PropertyShare> PropertyShares { get; set; }
+        DbSet<RealEstate> RealEstates { get; set; }
+        DbSet<RealEstateOwnership> RealEstateOwnerships { get; set; }
+        DbSet<RealEstateShare> RealEstateShares { get; set; }
         DbSet<Specification> Specifications { get; set; }
         DbSet<Role> Roles { get; set; }
         DbSet<User> Users { get; set; }

@@ -1,5 +1,5 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Entities;
 using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
@@ -31,7 +31,7 @@ namespace WebArMa.ArMaMelk.API.Domain.Persons.Entities
         public string PhoneNumber { get; private set; }
         public string? NationalCode { get; private set; }
         public virtual ICollection<User> Users { get; private set; }
-        public virtual ICollection<Property> Properties { get; private set; }
+        public virtual ICollection<RealEstate> Properties { get; private set; }
         public virtual ICollection<UserPerson> UserPersons { get; private set; }
     }
 }

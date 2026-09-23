@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Migrations;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -188,7 +190,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyOwnerships",
+                name: "RealEstateOwnerships",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -208,9 +210,9 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyOwnerships", x => x.Id);
+                    table.PrimaryKey("PK_RealEstateOwnerships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PropertyOwnerships_Persons_PersonId",
+                        name: "FK_RealEstateOwnerships_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
@@ -339,6 +341,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     FamilyName = table.Column<string>(type: "text", nullable: false),
                     PersonId = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
+                    UserGuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
@@ -365,7 +368,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Neighborhoods",
+                name: "Counties",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -382,11 +385,38 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Neighborhoods", x => x.Id);
+                    table.PrimaryKey("PK_Counties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Neighborhoods_Cities_CityId",
+                        name: "FK_Counties_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Villages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CountyId = table.Column<int>(type: "integer", nullable: false),
+                    Guid = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    CreatedByGuid = table.Column<Guid>(type: "uuid", nullable: true),
+                    UpdatedByGuid = table.Column<Guid>(type: "uuid", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "bytea", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Villages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Villages_Counties_CountyId",
+                        column: x => x.CountyId,
+                        principalTable: "Counties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -400,7 +430,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     SystemAddress = table.Column<string>(type: "text", nullable: false),
                     AddressLine = table.Column<string>(type: "text", nullable: false),
                     Location = table.Column<Point>(type: "geometry (point)", nullable: true),
-                    NeighborhoodId = table.Column<int>(type: "integer", nullable: false),
+                    VillageId = table.Column<int>(type: "integer", nullable: false),
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
@@ -413,27 +443,27 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_Neighborhoods_NeighborhoodId",
-                        column: x => x.NeighborhoodId,
-                        principalTable: "Neighborhoods",
+                        name: "FK_Addresses_Villages_VillageId",
+                        column: x => x.VillageId,
+                        principalTable: "Villages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Properties",
+                name: "RealEstates",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    PropertyType = table.Column<int>(type: "integer", nullable: false),
+                    RealEstateType = table.Column<int>(type: "integer", nullable: false),
                     UsageType = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
                     SpecificationsId = table.Column<int>(type: "integer", nullable: false),
                     FeaturesId = table.Column<int>(type: "integer", nullable: false),
-                    PropertyOwnershipId = table.Column<int>(type: "integer", nullable: false),
+                    RealEstateOwnershipId = table.Column<int>(type: "integer", nullable: false),
                     BuildingId = table.Column<int>(type: "integer", nullable: true),
                     PersonId = table.Column<int>(type: "integer", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: true),
@@ -447,55 +477,55 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.Id);
+                    table.PrimaryKey("PK_RealEstates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Properties_Addresses_AddressId",
+                        name: "FK_RealEstates_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_Buildings_BuildingId",
+                        name: "FK_RealEstates_Buildings_BuildingId",
                         column: x => x.BuildingId,
                         principalTable: "Buildings",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Properties_Features_FeaturesId",
+                        name: "FK_RealEstates_Features_FeaturesId",
                         column: x => x.FeaturesId,
                         principalTable: "Features",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_Persons_PersonId",
+                        name: "FK_RealEstates_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Properties_PropertyOwnerships_PropertyOwnershipId",
-                        column: x => x.PropertyOwnershipId,
-                        principalTable: "PropertyOwnerships",
+                        name: "FK_RealEstates_RealEstateOwnerships_RealEstateOwnershipId",
+                        column: x => x.RealEstateOwnershipId,
+                        principalTable: "RealEstateOwnerships",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_Specifications_SpecificationsId",
+                        name: "FK_RealEstates_Specifications_SpecificationsId",
                         column: x => x.SpecificationsId,
                         principalTable: "Specifications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_Users_UserId",
+                        name: "FK_RealEstates_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyShares",
+                name: "RealEstateShares",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyID = table.Column<long>(type: "bigint", nullable: false),
+                    RealEstateID = table.Column<long>(type: "bigint", nullable: false),
                     Token = table.Column<string>(type: "text", nullable: false),
                     UserGuid = table.Column<Guid>(type: "uuid", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: true),
@@ -503,7 +533,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     RevokedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     ViewCount = table.Column<int>(type: "integer", nullable: false),
                     LastViewedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    PropertyId = table.Column<int>(type: "integer", nullable: false),
+                    RealEstateId = table.Column<int>(type: "integer", nullable: false),
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
@@ -514,24 +544,24 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyShares", x => x.Id);
+                    table.PrimaryKey("PK_RealEstateShares", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PropertyShares_Properties_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Properties",
+                        name: "FK_RealEstateShares_RealEstates_RealEstateId",
+                        column: x => x.RealEstateId,
+                        principalTable: "RealEstates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PropertyShares_Users_UserId",
+                        name: "FK_RealEstateShares_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_NeighborhoodId",
+                name: "IX_Addresses_VillageId",
                 table: "Addresses",
-                column: "NeighborhoodId");
+                column: "VillageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_ProvinceId",
@@ -539,58 +569,58 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 column: "ProvinceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Neighborhoods_CityId",
-                table: "Neighborhoods",
+                name: "IX_Counties_CityId",
+                table: "Counties",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_AddressId",
-                table: "Properties",
+                name: "IX_RealEstateOwnerships_PersonId",
+                table: "RealEstateOwnerships",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RealEstates_AddressId",
+                table: "RealEstates",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_BuildingId",
-                table: "Properties",
+                name: "IX_RealEstates_BuildingId",
+                table: "RealEstates",
                 column: "BuildingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_FeaturesId",
-                table: "Properties",
+                name: "IX_RealEstates_FeaturesId",
+                table: "RealEstates",
                 column: "FeaturesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_PersonId",
-                table: "Properties",
+                name: "IX_RealEstates_PersonId",
+                table: "RealEstates",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_PropertyOwnershipId",
-                table: "Properties",
-                column: "PropertyOwnershipId");
+                name: "IX_RealEstates_RealEstateOwnershipId",
+                table: "RealEstates",
+                column: "RealEstateOwnershipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_SpecificationsId",
-                table: "Properties",
+                name: "IX_RealEstates_SpecificationsId",
+                table: "RealEstates",
                 column: "SpecificationsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_UserId",
-                table: "Properties",
+                name: "IX_RealEstates_UserId",
+                table: "RealEstates",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PropertyOwnerships_PersonId",
-                table: "PropertyOwnerships",
-                column: "PersonId");
+                name: "IX_RealEstateShares_RealEstateId",
+                table: "RealEstateShares",
+                column: "RealEstateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PropertyShares_PropertyId",
-                table: "PropertyShares",
-                column: "PropertyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyShares_UserId",
-                table: "PropertyShares",
+                name: "IX_RealEstateShares_UserId",
+                table: "RealEstateShares",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -617,6 +647,11 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 name: "IX_Users_PersonId",
                 table: "Users",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Villages_CountyId",
+                table: "Villages",
+                column: "CountyId");
         }
 
         /// <inheritdoc />
@@ -626,7 +661,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 name: "OTPs");
 
             migrationBuilder.DropTable(
-                name: "PropertyShares");
+                name: "RealEstateShares");
 
             migrationBuilder.DropTable(
                 name: "RoleUser");
@@ -638,7 +673,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 name: "UserPersons");
 
             migrationBuilder.DropTable(
-                name: "Properties");
+                name: "RealEstates");
 
             migrationBuilder.DropTable(
                 name: "Roles");
@@ -653,7 +688,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 name: "Features");
 
             migrationBuilder.DropTable(
-                name: "PropertyOwnerships");
+                name: "RealEstateOwnerships");
 
             migrationBuilder.DropTable(
                 name: "Specifications");
@@ -662,10 +697,13 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Neighborhoods");
+                name: "Villages");
 
             migrationBuilder.DropTable(
                 name: "Persons");
+
+            migrationBuilder.DropTable(
+                name: "Counties");
 
             migrationBuilder.DropTable(
                 name: "Cities");

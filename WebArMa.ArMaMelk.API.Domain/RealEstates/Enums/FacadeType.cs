@@ -1,4 +1,4 @@
-﻿namespace WebArMa.ArMaMelk.API.Domain.RealStates.Enums
+﻿namespace WebArMa.ArMaMelk.API.Domain.RealEstates.Enums
 {
     public enum FacadeType
     {

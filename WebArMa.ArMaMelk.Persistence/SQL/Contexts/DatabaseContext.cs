@@ -6,7 +6,7 @@ using WebArMa.ArMaMelk.API.Domain.Auth.Entities;
 using WebArMa.ArMaMelk.API.Domain.Locations.Entities;
 using WebArMa.ArMaMelk.API.Domain.OTPs;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Entities;
 using WebArMa.ArMaMelk.API.Domain.Users.Entities;
 using WebArMa.ArMaMelk.Persistence.SQL.Configurations;
 
@@ -25,9 +25,9 @@ namespace WebArMa.ArMaMelk.Persistence.SQL.Contexts
         public DbSet<UserPerson> UserPersons { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Features> Features { get; set; }
-        public DbSet<Property> Properties { get; set; }
-        public DbSet<PropertyOwnership> PropertyOwnerships { get; set; }
-        public DbSet<PropertyShare> PropertyShares { get; set; }
+        public DbSet<RealEstate> RealEstates { get; set; }
+        public DbSet<RealEstateOwnership> RealEstateOwnerships { get; set; }
+        public DbSet<RealEstateShare> RealEstateShares { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }

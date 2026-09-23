@@ -1,6 +1,6 @@
-﻿namespace WebArMa.ArMaMelk.API.Domain.RealStates.Enums
+﻿namespace WebArMa.ArMaMelk.API.Domain.RealEstates.Enums
 {
-    public enum PropertyDocumentStatus
+    public enum RealEstateDocumentStatus
     {
         Unknown = 0,
         Valid = 1,

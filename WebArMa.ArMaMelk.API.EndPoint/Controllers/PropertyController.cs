@@ -1,9 +1,9 @@
 using Asp.Versioning;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
-using WebArMa.ArMaMelk.API.Application.Properties.Commands.Create;
-using WebArMa.ArMaMelk.API.Application.Properties.Commands.Delete;
-using WebArMa.ArMaMelk.API.Application.Properties.Commands.Update;
+using WebArMa.ArMaMelk.API.Application.Units.Commands.Create;
+using WebArMa.ArMaMelk.API.Application.Units.Commands.Delete;
+using WebArMa.ArMaMelk.API.Application.Units.Commands.Update;
 
 namespace WebArMa.ArMaMelk.API.EndPoint.Controllers
 {

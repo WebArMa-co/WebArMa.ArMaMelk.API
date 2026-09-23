@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Update
+namespace WebArMa.ArMaMelk.API.Application.Units.Commands.Update
 {
     public class UpdateCommandValidator : AbstractValidator<UpdateCommand>
     {

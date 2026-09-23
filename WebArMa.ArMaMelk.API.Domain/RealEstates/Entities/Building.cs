@@ -1,7 +1,7 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Enums;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Enums;
 
-namespace WebArMa.ArMaMelk.API.Domain.RealStates.Entities
+namespace WebArMa.ArMaMelk.API.Domain.RealEstates.Entities
 {
     public class Building : EntityBase
     {

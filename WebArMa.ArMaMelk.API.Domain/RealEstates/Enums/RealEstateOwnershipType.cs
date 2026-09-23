@@ -1,6 +1,6 @@
-﻿namespace WebArMa.ArMaMelk.API.Domain.RealStates.Enums
+﻿namespace WebArMa.ArMaMelk.API.Domain.RealEstates.Enums
 {
-    public enum PropertyOwnershipType
+    public enum RealEstateOwnershipType
     {
         Unknown = 0,
         Private = 1,

@@ -14,8 +14,8 @@ using WebArMa.ArMaMelk.Persistence.SQL.Contexts;
 namespace WebArMa.ArMaMelk.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260922095447_Changes-To-UserPerson")]
-    partial class ChangesToUserPerson
+    [Migration("20260923101626_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -476,7 +476,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.ToTable("UserPersons");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Building", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.Building", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -526,7 +526,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.ToTable("Buildings");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Features", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.Features", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -600,7 +600,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Property", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -632,10 +632,10 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Property<int?>("PersonId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PropertyOwnershipId")
+                    b.Property<int>("RealEstateOwnershipId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PropertyType")
+                    b.Property<int>("RealEstateType")
                         .HasColumnType("integer");
 
                     b.Property<byte[]>("RowVersion")
@@ -674,16 +674,16 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("PropertyOwnershipId");
+                    b.HasIndex("RealEstateOwnershipId");
 
                     b.HasIndex("SpecificationsId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Properties");
+                    b.ToTable("RealEstates");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.PropertyOwnership", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstateOwnership", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -732,10 +732,10 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("PropertyOwnerships");
+                    b.ToTable("RealEstateOwnerships");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.PropertyShare", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstateShare", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -761,10 +761,10 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Property<DateTimeOffset?>("LastViewedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("PropertyID")
+                    b.Property<long>("RealEstateID")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("PropertyId")
+                    b.Property<int>("RealEstateId")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("RevokedAt")
@@ -795,14 +795,14 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PropertyId");
+                    b.HasIndex("RealEstateId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PropertyShares");
+                    b.ToTable("RealEstateShares");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Specification", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.Specification", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1052,7 +1052,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Property", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstate", b =>
                 {
                     b.HasOne("WebArMa.ArMaMelk.API.Domain.Locations.Entities.Address", "Address")
                         .WithMany()
@@ -1060,11 +1060,11 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Building", "Building")
+                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.Building", "Building")
                         .WithMany()
                         .HasForeignKey("BuildingId");
 
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Features", "Features")
+                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.Features", "Features")
                         .WithMany()
                         .HasForeignKey("FeaturesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1074,13 +1074,13 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                         .WithMany("Properties")
                         .HasForeignKey("PersonId");
 
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.PropertyOwnership", "PropertyOwnership")
+                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstateOwnership", "RealEstateOwnership")
                         .WithMany()
-                        .HasForeignKey("PropertyOwnershipId")
+                        .HasForeignKey("RealEstateOwnershipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Specification", "Specifications")
+                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.Specification", "Specifications")
                         .WithMany()
                         .HasForeignKey("SpecificationsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1096,12 +1096,12 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
 
                     b.Navigation("Features");
 
-                    b.Navigation("PropertyOwnership");
+                    b.Navigation("RealEstateOwnership");
 
                     b.Navigation("Specifications");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.PropertyOwnership", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstateOwnership", b =>
                 {
                     b.HasOne("WebArMa.ArMaMelk.API.Domain.Persons.Entities.Person", "Person")
                         .WithMany()
@@ -1112,11 +1112,11 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.PropertyShare", b =>
+            modelBuilder.Entity("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstateShare", b =>
                 {
-                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealStates.Entities.Property", "Property")
+                    b.HasOne("WebArMa.ArMaMelk.API.Domain.RealEstates.Entities.RealEstate", "RealEstate")
                         .WithMany()
-                        .HasForeignKey("PropertyId")
+                        .HasForeignKey("RealEstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1124,7 +1124,7 @@ namespace WebArMa.ArMaMelk.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Property");
+                    b.Navigation("RealEstate");
 
                     b.Navigation("User");
                 });

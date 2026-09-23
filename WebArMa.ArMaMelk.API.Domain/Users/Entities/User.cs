@@ -1,6 +1,6 @@
 ﻿using WebArMa.ArMaMelk.API.Domain._Shared.Entities;
 using WebArMa.ArMaMelk.API.Domain.Persons.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Entities;
 
 namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
 {
@@ -40,7 +40,7 @@ namespace WebArMa.ArMaMelk.API.Domain.Users.Entities
         public Guid PersonGuid { get; private set; }
         public int PersonId { get; private set; }
         public virtual Person Person { get; private set; }
-        public virtual ICollection<Property> Properties { get; private set; }
+        public virtual ICollection<RealEstate> Properties { get; private set; }
         public virtual ICollection<Role> Roles { get; private set; }
     }
 }

@@ -1,11 +1,11 @@
 using Mediator;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Enums;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Enums;
 
-namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
+namespace WebArMa.ArMaMelk.API.Application.Units.Commands.Create
 {
     public record CreateCommand(
         string Title,
-        PropertyType PropertyType,
+        RealEstateType RealEstateType,
         UsageType UsageType,
         int VillageId,
         string SystemAddress,
@@ -16,8 +16,8 @@ namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
         int? Bedrooms,
         int? Floor,
         int? TotalFloors,
-        int? UnitCount,
-        int? UnitPerFloor,
+        int? RealEstateCount,
+        int? RealEstatePerFloor,
         int? YearBuilt,
         bool HasParking,
         int? ParkingCount,
@@ -33,12 +33,12 @@ namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Create
         bool HasSecurity,
         bool HasCCTV,
         Guid PersonGuid,
-        PropertyDocumentType DocumentType,
-        PropertyDocumentStatus DocumentStatus,
-        PropertyOwnershipType OwnershipType,
+        RealEstateDocumentType DocumentType,
+        RealEstateDocumentStatus DocumentStatus,
+        RealEstateOwnershipType OwnershipType,
         int? BuildingTotalFloors = null,
-        int? BuildingUnitCount = null,
-        int? BuildingUnitPerFloor = null,
+        int? BuildingRealEstateCount = null,
+        int? BuildingRealEstatePerFloor = null,
         ConstructionType? ConstructionType = null,
         FacadeType? FacadeType = null) : IRequest<Guid>;
 }

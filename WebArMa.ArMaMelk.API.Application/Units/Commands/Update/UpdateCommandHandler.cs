@@ -3,34 +3,34 @@ using Microsoft.EntityFrameworkCore;
 using WebArMa.ArMaMelk.API.Application._Shared.Contexts;
 using WebArMa.ArMaMelk.API.Application._Shared.Exceptions;
 using WebArMa.ArMaMelk.API.Domain.Locations.Entities;
-using WebArMa.ArMaMelk.API.Domain.RealStates.Entities;
+using WebArMa.ArMaMelk.API.Domain.RealEstates.Entities;
 
-namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Update
+namespace WebArMa.ArMaMelk.API.Application.Units.Commands.Update
 {
     public class UpdateCommandHandler(IDatabaseContext databaseContext) : IRequestHandler<UpdateCommand>
     {
         public async ValueTask<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            var property = await databaseContext.Properties.Include(p => p.Address).Include(p => p.Specifications).Include(p => p.Features).Include(p => p.PropertyOwnership).Include(p => p.Building).FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken) ?? throw new NotFoundException(nameof(Property));
+            var realEstate = await databaseContext.RealEstates.Include(p => p.Address).Include(p => p.Specifications).Include(p => p.Features).Include(p => p.RealEstateOwnership).Include(p => p.Building).FirstOrDefaultAsync(p => p.Guid == request.Guid, cancellationToken) ?? throw new NotFoundException(nameof(RealEstate));
 
             var village = await databaseContext.Villages.FirstOrDefaultAsync(v => v.Id == request.VillageId, cancellationToken) ?? throw new NotFoundException(nameof(Village));
 
             var person = await databaseContext.Persons.FirstOrDefaultAsync(p => p.Guid == request.PersonGuid, cancellationToken) ?? throw new NotFoundException("Person");
 
-            property.Address.Update(village, request.SystemAddress, request.AddressLine);
+            realEstate.Address.Update(village, request.SystemAddress, request.AddressLine);
 
-            property.Specifications.Update(
+            realEstate.Specifications.Update(
                 request.Area,
                 request.LandArea,
                 request.Rooms,
                 request.Bedrooms,
                 request.Floor,
                 request.TotalFloors,
-                request.UnitCount,
-                request.UnitPerFloor,
+                request.RealEstateCount,
+                request.RealEstatePerFloor,
                 request.YearBuilt);
 
-            property.Features.Update(
+            realEstate.Features.Update(
                 request.HasParking,
                 request.ParkingCount,
                 request.HasStorage,
@@ -45,65 +45,65 @@ namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Update
                 request.HasSecurity,
                 request.HasCCTV);
 
-            property.PropertyOwnership.Update(
+            realEstate.RealEstateOwnership.Update(
                 person,
                 request.DocumentType,
                 request.DocumentStatus,
                 request.OwnershipType);
 
-            var hasBuilding = request.BuildingTotalFloors.HasValue || request.BuildingUnitCount.HasValue || request.BuildingUnitPerFloor.HasValue || request.ConstructionType.HasValue || request.FacadeType.HasValue;
+            var hasBuilding = request.BuildingTotalFloors.HasValue || request.BuildingRealEstateCount.HasValue || request.BuildingRealEstatePerFloor.HasValue || request.ConstructionType.HasValue || request.FacadeType.HasValue;
 
             if (hasBuilding)
             {
-                if (property.Building == null)
+                if (realEstate.Building == null)
                 {
-                    property.Update(
+                    realEstate.Update(
                         request.Title,
-                        request.PropertyType,
+                        request.RealEstateType,
                         request.UsageType,
-                        property.Address,
-                        property.Specifications,
-                        property.Features,
-                        property.PropertyOwnership,
+                        realEstate.Address,
+                        realEstate.Specifications,
+                        realEstate.Features,
+                        realEstate.RealEstateOwnership,
                         Building.Create(
                             request.BuildingTotalFloors,
-                            request.BuildingUnitCount,
-                            request.BuildingUnitPerFloor,
+                            request.BuildingRealEstateCount,
+                            request.BuildingRealEstatePerFloor,
                             request.ConstructionType,
                             request.FacadeType));
                 }
                 else
                 {
-                    property.Building.Update(
+                    realEstate.Building.Update(
                         request.BuildingTotalFloors,
-                        request.BuildingUnitCount,
-                        request.BuildingUnitPerFloor,
+                        request.BuildingRealEstateCount,
+                        request.BuildingRealEstatePerFloor,
                         request.ConstructionType,
                         request.FacadeType);
                 }
             }
-            else if (property.Building != null)
+            else if (realEstate.Building != null)
             {
-                databaseContext.Buildings.Remove(property.Building);
-                property.Update(
+                databaseContext.Buildings.Remove(realEstate.Building);
+                realEstate.Update(
                     request.Title,
-                    request.PropertyType,
+                    request.RealEstateType,
                     request.UsageType,
-                    property.Address,
-                    property.Specifications,
-                    property.Features,
-                    property.PropertyOwnership);
+                    realEstate.Address,
+                    realEstate.Specifications,
+                    realEstate.Features,
+                    realEstate.RealEstateOwnership);
             }
             else
             {
-                property.Update(
+                realEstate.Update(
                     request.Title,
-                    request.PropertyType,
+                    request.RealEstateType,
                     request.UsageType,
-                    property.Address,
-                    property.Specifications,
-                    property.Features,
-                    property.PropertyOwnership);
+                    realEstate.Address,
+                    realEstate.Specifications,
+                    realEstate.Features,
+                    realEstate.RealEstateOwnership);
             }
 
             await databaseContext.SaveChangesAsync(cancellationToken);

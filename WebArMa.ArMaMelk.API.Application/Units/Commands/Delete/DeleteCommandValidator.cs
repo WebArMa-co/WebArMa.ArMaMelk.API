@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace WebArMa.ArMaMelk.API.Application.Properties.Commands.Delete
+namespace WebArMa.ArMaMelk.API.Application.Units.Commands.Delete
 {
     public class DeleteCommandValidator : AbstractValidator<DeleteCommand>
     {
